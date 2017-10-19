@@ -1,0 +1,4 @@
+C:\Maryyann\FALL2017\Production 2 555\Backup MAAD\MAAD_2017.1\Builds\1006\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj;x86
+C:\Maryyann\FALL2017\Production 2 555\Backup MAAD\MAAD_2017.1\Builds\1006\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj;x86
+C:\Maryyann\FALL2017\Production 2 555\Backup MAAD\MAAD_2017.1\Builds\1006\GeneratedProjects\UWP\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj;x86
+C:\Maryyann\FALL2017\Production 2 555\Backup MAAD\MAAD_2017.1\Builds\1006\MAAD\MAAD.csproj;x86

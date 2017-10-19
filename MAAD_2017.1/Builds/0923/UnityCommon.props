@@ -1,0 +1,9 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityWSASolutionName>MAAD</UnityWSASolutionName>
+        <UnityWSASolutionDir>C:\Maryyann\FALL2017\Production 2 555\MAAD\Builds\0923\</UnityWSASolutionDir>
+        <UnityProjectDir>C:\Maryyann\FALL2017\Production 2 555\MAAD\</UnityProjectDir>
+        <UnityWSAPlayerDir>C:\Program Files\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
+    </PropertyGroup>
+</Project>
