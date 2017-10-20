@@ -40,6 +40,7 @@ public class AdamBehavior : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        
         StartFirstDemo = 0;
         StartSecDemo = 0;
         StartSecHold = 0;
@@ -127,6 +128,12 @@ public class AdamBehavior : MonoBehaviour
         }
 
 
+    }
+
+    public void Restart() {
+        StartFirstDemo = 0;
+        StartSecDemo = 0;
+        StartSecHold = 0;
     }
 
 

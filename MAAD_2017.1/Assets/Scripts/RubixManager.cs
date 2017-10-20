@@ -12,7 +12,6 @@ public enum RubixTargetState
     Welcome = 0,
     FirstTracker = 1,
     SecTracker = 2,
-    //ThirdTracker = 3,
     End = 3
 }
 
@@ -23,7 +22,7 @@ public class RubixManager : MonoBehaviour {
     public Action<RubixTargetState> Success;
     public Action<RubixTargetState> Fail;
 
-    public static RubixTargetState currentStage;
+    public RubixTargetState currentStage;
     public DefaultTrackableEventHandler[] trackers;
 
     public float FirstDemoDur;
@@ -32,6 +31,7 @@ public class RubixManager : MonoBehaviour {
     public float[] MeltingTimeTriggers = new float[] { 20, 30, 45, 50 };
 
     bool startTracker; // allows Interactive phyiscal experience
+    private int counter; 
 
     AdamBehavior adam;
 
@@ -39,9 +39,6 @@ public class RubixManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         currentStage = RubixTargetState.Welcome;  //after Welcome animation plays, stage -> FirstTracker 
-        //startTracker = true; //will be false  
-
-        //currentObjectStatus = new ObjectStatus(new bool[] { false, false });
 
         Success += TrackerSuccess;
         Fail += TrackerFail;
@@ -49,19 +46,17 @@ public class RubixManager : MonoBehaviour {
         adam = GameObject.Find("Adam").GetComponent<AdamBehavior>(); //Find Adam in the scene
         adam.SetState(AdamState.Hiding); // Set Adam initial state
 
+        Debug.Log("Rubix State:" + currentStage);
 
     }
 
     // Update is called once per frame
     void Update() {
         WorldState();
-        TrackerStatus(currentStage, trackers);
+        TrackerStatus();
     }
 
     public void WorldState() {
-        //welcome state 
-        //if (startTracker == true) // Finished Welcome state
-        //{
 
         if (AdamBehavior.state == AdamState.FirstDemo) //Adam is demoing the first symbol 
         {
@@ -116,58 +111,32 @@ public class RubixManager : MonoBehaviour {
         }
     }
 
-    public void TrackerStatus(RubixTargetState currentStage, DefaultTrackableEventHandler[] trackers) {
+    public void TrackerStatus() {
 
         foreach (DefaultTrackableEventHandler tracker in trackers)
         {
-            if (currentStage == RubixTargetState.FirstTracker)
-            {
-                if (tracker.found && tracker.mTrackableBehaviour.TrackableName == "Astronaut")
-                {
-                    Success(currentStage);
-                    currentStage = (RubixTargetState)((int)currentStage + 1);
-                    Debug.Log("success with Astronaut! Next stage:" + currentStage);
+            if (tracker.found) {
+
+                if (tracker.mTrackableBehaviour.TrackableName == "Astronaut") {
+                    if (currentStage == RubixTargetState.FirstTracker)
+                    {
+                        Debug.Log("Astronaut!");
+                        Success(currentStage);
+                        currentStage = RubixTargetState.SecTracker;
+
+                    }
                 }
-            }
-            if (currentStage == RubixTargetState.SecTracker)
-            {
-                if (tracker.found && tracker.mTrackableBehaviour.TrackableName == "Oxygen")
-                {
-                    
-                    Success(currentStage);
-                    currentStage = (RubixTargetState)((int)currentStage + 1);
+                else if (tracker.mTrackableBehaviour.TrackableName == "Oxygen") {
+                    if (currentStage == RubixTargetState.SecTracker) {
+                        Debug.Log("Oxygen!");
+                    }
+
                 }
-            }
-            else
-            {
-                break;
+
             }
         }
     }
 
-
-
-    /*public class TrackerStatus : object
-{
-    public bool Equals(object tracker) {
-
-
-        foreach (DefaultTrackableEventHandler tracker in trackers)
-        {
-            if (tracker.found)
-            {
-                if (tracker.mTrackableBehaviour.TrackableName == "Astronaut")
-                {
-                    adam.SetState(AdamState.SecDemo);
-                }
-                if (tracker.mTrackableBehaviour.TrackableName == "Oxygen")
-                {
-                    adam.SetState(AdamState.Hop);
-                }
-            }
-    }
-
-}*/
 
 
     public void TrackerSuccess(RubixTargetState targetStage) {
@@ -180,8 +149,6 @@ public class RubixManager : MonoBehaviour {
                 break; 
             case RubixTargetState.FirstTracker:
                 adam.SetState(AdamState.Happy);
-                //Debug.Log("First tracker success!");
-                //adam.SetState(AdamState.SecDemo);
                 // bloom flower 
                 break;
             case RubixTargetState.SecTracker:
@@ -194,8 +161,6 @@ public class RubixManager : MonoBehaviour {
                 //trigger flowers
                 break; 
          }  
-
-
      }
 
     public void TrackerFail(RubixTargetState targetStage)
@@ -213,9 +178,7 @@ public class RubixManager : MonoBehaviour {
                 break; 
         }
     }
-        
-
-       
+           
 
 
     public void TriggerSuccess()
@@ -223,6 +186,17 @@ public class RubixManager : MonoBehaviour {
         if (Success != null) Success(currentStage);
         currentStage = (RubixTargetState)((int)currentStage + 1);
         Debug.Log("Rubix State:" + currentStage);
+    }
+
+    public void Restart()
+    {
+        currentStage = RubixTargetState.Welcome;
+
+        Success += TrackerSuccess;
+        Fail += TrackerFail;
+
+        adam = GameObject.Find("Adam").GetComponent<AdamBehavior>();
+        adam.SetState(AdamState.Hiding); // doesn't reset Adam's state; 
     }
 
 } 

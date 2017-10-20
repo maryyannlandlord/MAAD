@@ -20,6 +20,9 @@ namespace Vuforia
         public bool found = false;
         [HideInInspector]
         public TrackableBehaviour mTrackableBehaviour;
+        //[HideInInspector]
+        //RubixManager rubix;  
+        private int counter; 
     
         #endregion // PRIVATE_MEMBER_VARIABLES
 
@@ -34,6 +37,8 @@ namespace Vuforia
             {
                 mTrackableBehaviour.RegisterTrackableEventHandler(this);
             }
+            //rubix = GameObject.Find("Rubix").GetComponent<RubixManager>(); 
+            counter = 0; 
         }
 
         #endregion // UNTIY_MONOBEHAVIOUR_METHODS
@@ -50,12 +55,13 @@ namespace Vuforia
                                         TrackableBehaviour.Status previousStatus,
                                         TrackableBehaviour.Status newStatus)
         {
-            if (newStatus == TrackableBehaviour.Status.DETECTED ||
-                newStatus == TrackableBehaviour.Status.TRACKED ||
-                newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+            if (newStatus == TrackableBehaviour.Status.DETECTED || newStatus == TrackableBehaviour.Status.TRACKED || newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED && counter < 5) 
             {
+               
                 OnTrackingFound();
-                found = true; 
+                found = true;
+
+               
             }
             else
             {
