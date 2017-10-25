@@ -10,8 +10,8 @@ namespace HoloToolkit.Unity
     {
 
         private int SceneLauncherBuildIndex { get; set; }
-        RubixManager rubixReset;
-        AdamBehavior adamReset; 
+        RubixManager rubixRestart;
+        AdamBehavior adamRestart; 
 
         protected override void Awake()
         {
@@ -31,8 +31,8 @@ namespace HoloToolkit.Unity
         void Start()
         {
             SceneLauncherBuildIndex = SceneManager.GetActiveScene().buildIndex;
-            rubixReset = GameObject.Find("Rubix").GetComponent<RubixManager>(); 
-            adamReset = GameObject.Find("Adam").GetComponent<AdamBehavior>();
+            rubixRestart = GameObject.Find("Rubix").GetComponent<RubixManager>();
+            adamRestart = GameObject.Find("Adam").GetComponent<AdamBehavior>();
         }
 
         // Update is called once per frame
@@ -43,8 +43,8 @@ namespace HoloToolkit.Unity
         public void Restart()
         {
             Debug.LogFormat("SceneLauncher: Returning to SceneLauncher scene {0}.", SceneLauncherBuildIndex);
-            rubixReset.Restart(); 
-            adamReset.Restart(); 
+            adamRestart.Restart();
+            rubixRestart.Restart(); 
             SceneManager.LoadSceneAsync(SceneLauncherBuildIndex, LoadSceneMode.Single);
         }
 

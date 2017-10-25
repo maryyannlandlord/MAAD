@@ -131,9 +131,14 @@ public class AdamBehavior : MonoBehaviour
     }
 
     public void Restart() {
+
         StartFirstDemo = 0;
         StartSecDemo = 0;
         StartSecHold = 0;
+
+        // Need to destroy and remake adam to set to Hiding 
+
+
     }
 
 

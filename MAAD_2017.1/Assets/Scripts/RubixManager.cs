@@ -29,6 +29,7 @@ public class RubixManager : MonoBehaviour {
     public float SecDemoDur;
     public float HappyDur;
     public float[] MeltingTimeTriggers = new float[] { 20, 30, 45, 50 };
+    public GameObject adamPrefab;
 
     bool startTracker; // allows Interactive phyiscal experience
     private int counter; 
@@ -191,12 +192,7 @@ public class RubixManager : MonoBehaviour {
     public void Restart()
     {
         currentStage = RubixTargetState.Welcome;
-
-        Success += TrackerSuccess;
-        Fail += TrackerFail;
-
-        adam = GameObject.Find("Adam").GetComponent<AdamBehavior>();
-        adam.SetState(AdamState.Hiding); // doesn't reset Adam's state; 
+        Debug.Log("adam start after restart:" + AdamBehavior.state);
     }
 
 } 
