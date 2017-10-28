@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_Scenes/MAAD_10_18.unity
-    guid: 71f09de610b1b344f8cb6d8b900c6de4
   - enabled: 1
-    path: Assets/_Scenes/MAAD_10_22.unity
-    guid: c784a46992acdcc4b9f5b420c35060a2
+    path: Assets/Packages/HoloToolkit-Examples/SceneLauncher/Scenes/SceneLauncher.unity
+    guid: fd656d2febd0dea46b3825b704706806

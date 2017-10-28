@@ -12,16 +12,24 @@ public enum AdamState
     Happy,
     Spinning,
     Hop, 
+    Fly,
     FirstDemo, 
     FirstHold, 
     SecDemo, 
-    SecHold
+    SecHold, 
+    Eating, 
+    Surprise, 
+    Investigate, 
+    Welcome
 }
 
 
 public class AdamBehavior : MonoBehaviour
 {
     Animator animator;
+    RubixManager rubix;
+    
+
     public Renderer[] renderers;
 
     public static AdamState state;
@@ -33,14 +41,30 @@ public class AdamBehavior : MonoBehaviour
     [HideInInspector]
     public float StartSecHold;
     [HideInInspector]
-    public float StartHappy; 
+    public float StartHappy;
+    [HideInInspector]
+    public float StartSurprise; 
+
+    public Transform TargetPoint1;
+    public Transform _adamAnchor; 
+
+
+    public static Transform AdamAnchor;
+    Transform flyTarget;
+
+    private void Awake()
+    {
+        AdamAnchor = _adamAnchor;
+    }
 
 
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        rubix = GameObject.Find("Rubix").GetComponent<RubixManager>();
+
+
         StartFirstDemo = 0;
         StartSecDemo = 0;
         StartSecHold = 0;
@@ -76,6 +100,9 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Hop:
                 animator.SetBool("Hop", false);
                 break;
+            case AdamState.Fly:
+                animator.SetFloat("Fly", 0f);
+                break; 
             case AdamState.FirstDemo:
                 animator.SetBool("FirstDemo", false);
                 break;
@@ -88,6 +115,14 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.SecHold:
                 animator.SetBool("SecHold", false);
                 break;
+            case AdamState.Eating:
+                animator.SetBool("Eating", false);
+                break; 
+            case AdamState.Surprise:
+                animator.SetBool("Surprise", false);
+                break; 
+
+           
 
         }
         switch(state)
@@ -108,6 +143,10 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Hop:
                 animator.SetBool("Hop", true);
                 break;
+            case AdamState.Fly:
+                 animator.SetFloat("Fly", .1f);
+                 flyTarget = (RubixManager.currentStage == RubixTargetState.Welcome) ? AdamAnchor : TargetPoint1;
+                 break;
             case AdamState.FirstDemo:
                 StartFirstDemo = Time.time;
                 animator.SetBool("FirstDemo", true);
@@ -123,6 +162,13 @@ public class AdamBehavior : MonoBehaviour
                 StartSecHold = Time.time;
                 animator.SetBool("SecHold", true);
                 break;
+            case AdamState.Eating:
+                animator.SetBool("Eating", true);
+                break;
+            case AdamState.Surprise:
+                StartSurprise = Time.time;
+                animator.SetBool("Surprise", true);
+                break; 
 
 
         }
@@ -135,8 +181,6 @@ public class AdamBehavior : MonoBehaviour
         StartFirstDemo = 0;
         StartSecDemo = 0;
         StartSecHold = 0;
-
-        // Need to destroy and remake adam to set to Hiding 
 
 
     }

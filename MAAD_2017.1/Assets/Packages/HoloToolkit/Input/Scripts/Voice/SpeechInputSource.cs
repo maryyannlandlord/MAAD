@@ -65,7 +65,7 @@ namespace HoloToolkit.Unity.InputModule
 
             if (PersistentKeywords)
             {
-                DontDestroyOnLoad(gameObject);
+               // DontDestroyOnLoad(gameObject);
             }
 
             int keywordCount = Keywords.Length;

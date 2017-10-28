@@ -43,9 +43,10 @@ namespace HoloToolkit.Unity
         public void Restart()
         {
             Debug.LogFormat("SceneLauncher: Returning to SceneLauncher scene {0}.", SceneLauncherBuildIndex);
-            adamRestart.Restart();
-            rubixRestart.Restart(); 
+            //adamRestart.Restart();
+            //rubixRestart.Restart(); 
             SceneManager.LoadSceneAsync(SceneLauncherBuildIndex, LoadSceneMode.Single);
+
         }
 
 

@@ -17,25 +17,28 @@ public enum RubixTargetState
 
 public class RubixManager : MonoBehaviour {
 
-
+    AdamBehavior adam;
+    Transform targetPlayerLOS;
 
     public Action<RubixTargetState> Success;
     public Action<RubixTargetState> Fail;
 
-    public RubixTargetState currentStage;
+    public static RubixTargetState currentStage;
     public DefaultTrackableEventHandler[] trackers;
 
     public float FirstDemoDur;
     public float SecDemoDur;
+    public float SupriseDur; 
     public float HappyDur;
     public float[] MeltingTimeTriggers = new float[] { 20, 30, 45, 50 };
-    public GameObject adamPrefab;
+    public float floatLerpSpeed = .01f;
+
 
     bool startTracker; // allows Interactive phyiscal experience
-    private int counter; 
+    private int counter;
 
-    AdamBehavior adam;
-
+    public Transform playerTransform;
+    
 
     // Use this for initialization
     void Start() {
@@ -45,7 +48,9 @@ public class RubixManager : MonoBehaviour {
         Fail += TrackerFail;
 
         adam = GameObject.Find("Adam").GetComponent<AdamBehavior>(); //Find Adam in the scene
-        adam.SetState(AdamState.Hiding); // Set Adam initial state
+        adam.SetState(AdamState.Hiding); // Set Adam initial state 
+
+        targetPlayerLOS = AdamBehavior.AdamAnchor;
 
         Debug.Log("Rubix State:" + currentStage);
 
@@ -59,7 +64,17 @@ public class RubixManager : MonoBehaviour {
 
     public void WorldState() {
 
-        if (AdamBehavior.state == AdamState.FirstDemo) //Adam is demoing the first symbol 
+        if (AdamBehavior.state == AdamState.Eating)
+        {
+            // if collider is triggered 
+            // adam.SetState(AdamState.Surprise);
+            // if (Time.time >= adam.StartSurprise + SupriseDur)
+            // transform.position = Vector3.Lerp(adam.transform.position, targetPlayerLOS.position, floatLerpSpeed);
+            // transform.rotation = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
+
+        }
+
+        else if (AdamBehavior.state == AdamState.FirstDemo) //Adam is demoing the first symbol 
         {
 
             if (Time.time >= adam.StartFirstDemo + FirstDemoDur)
@@ -129,6 +144,7 @@ public class RubixManager : MonoBehaviour {
                 }
                 else if (tracker.mTrackableBehaviour.TrackableName == "Oxygen") {
                     if (currentStage == RubixTargetState.SecTracker) {
+                        Success(currentStage);
                         Debug.Log("Oxygen!");
                     }
 

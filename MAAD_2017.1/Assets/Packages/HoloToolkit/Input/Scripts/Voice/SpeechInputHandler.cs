@@ -47,7 +47,7 @@ namespace HoloToolkit.Unity.InputModule
         {
             if (PersistentKeywords)
             {
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
                 SceneManager.sceneLoaded += OnSceneLoaded;
             }
 
