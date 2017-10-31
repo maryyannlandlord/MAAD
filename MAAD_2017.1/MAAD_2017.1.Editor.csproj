@@ -205,6 +205,7 @@
     <Compile Include="Assets\Vuforia\Editor\Scripts\VuforiaConfigurationEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Materials\Materials\butts.txt" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\PlaneCut.cginc" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\VolumeRenderShared.cginc" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\VolumeRenderSlice.shader" />

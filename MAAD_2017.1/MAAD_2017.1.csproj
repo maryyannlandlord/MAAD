@@ -499,9 +499,13 @@
     <Compile Include="Assets\Packages\HoloToolkit-Tests\Utilities\Scripts\TextToSpeechOnTapTest.cs" />
     <Compile Include="Assets\Packages\HoloToolkit-Tests\Utilities\Scripts\TextToSpeechTest.cs" />
     <Compile Include="Assets\Scripts\AdamBehavior.cs" />
+    <Compile Include="Assets\Scripts\AudioController.cs" />
+    <Compile Include="Assets\Scripts\flowerBehavior.cs" />
+    <Compile Include="Assets\Scripts\RandomizeAudio.cs" />
     <Compile Include="Assets\Scripts\RubixManager.cs" />
     <Compile Include="Assets\Scripts\Scene_Manager.cs" />
     <Compile Include="Assets\Scripts\SpawnSphere.cs" />
+    <Compile Include="Assets\Scripts\SurpriseTrigger.cs" />
     <Compile Include="Assets\Scripts\VoiceCommands.cs" />
     <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
     <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />
@@ -540,6 +544,7 @@
     <Compile Include="Assets\Vuforia\Scripts\WordBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Materials\Materials\butts.txt" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\PlaneCut.cginc" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\VolumeRenderShared.cginc" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\VolumeRenderSlice.shader" />

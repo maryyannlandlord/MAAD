@@ -32,7 +32,7 @@ public class AdamBehavior : MonoBehaviour
 
     public Renderer[] renderers;
 
-    public static AdamState state;
+    public AdamState state;
 
     [HideInInspector]
     public float StartFirstDemo;
@@ -43,14 +43,23 @@ public class AdamBehavior : MonoBehaviour
     [HideInInspector]
     public float StartHappy;
     [HideInInspector]
-    public float StartSurprise; 
-
-    public Transform TargetPoint1;
+    public float StartSurprise;
+    [HideInInspector]
+    public float StartInvest;
+    [HideInInspector]
+    public float StartIdle;
+    [HideInInspector]
+    public float StartWelcome; 
+    
     public Transform _adamAnchor; 
 
 
     public static Transform AdamAnchor;
-    Transform flyTarget;
+    public Transform TargetPoint1;
+    public Transform TargetPoint2; 
+    [HideInInspector]
+    public Transform flyTarget;
+    public bool firstContact;
 
     private void Awake()
     {
@@ -68,6 +77,13 @@ public class AdamBehavior : MonoBehaviour
         StartFirstDemo = 0;
         StartSecDemo = 0;
         StartSecHold = 0;
+        StartHappy = 0; 
+        StartSurprise = 0;
+        StartInvest = 0;
+        StartIdle = 0;
+        StartWelcome = 0;
+
+        firstContact = false; 
 
     }
 
@@ -120,9 +136,15 @@ public class AdamBehavior : MonoBehaviour
                 break; 
             case AdamState.Surprise:
                 animator.SetBool("Surprise", false);
-                break; 
+                break;
+            case AdamState.Investigate:
+                animator.SetBool("Investigate", false);
+                break;
+            case AdamState.Welcome:
+                animator.SetBool("Welcome", false);
+                break;
 
-           
+
 
         }
         switch(state)
@@ -132,6 +154,10 @@ public class AdamBehavior : MonoBehaviour
                 {
                     r.enabled = false; 
                 }
+                break;
+            case AdamState.Idle:
+                StartIdle = Time.time;
+                animator.SetBool("Idle", true);
                 break;
             case AdamState.Happy:
                 StartHappy = Time.time; 
@@ -145,7 +171,7 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Fly:
                  animator.SetFloat("Fly", .1f);
-                 flyTarget = (RubixManager.currentStage == RubixTargetState.Welcome) ? AdamAnchor : TargetPoint1;
+                 flyTarget = (rubix.currentStage == RubixTargetState.Welcome) ? AdamAnchor : TargetPoint2;
                  break;
             case AdamState.FirstDemo:
                 StartFirstDemo = Time.time;
@@ -168,22 +194,31 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Surprise:
                 StartSurprise = Time.time;
                 animator.SetBool("Surprise", true);
+                break;
+            case AdamState.Investigate:
+                StartInvest = Time.time; 
+                animator.SetBool("Investigate", true);
+                break;
+            case AdamState.Welcome:
+                StartWelcome = Time.time; 
+                animator.SetBool("Welcome", true);
                 break; 
 
 
         }
 
+    }
+
+    public void WelcomeTransition()
+    {
+        rubix.currentStage = RubixTargetState.FirstTracker;
+        state = AdamState.Fly;
+
+        Debug.Log("changed rubix state: " + rubix.currentStage);
+        Debug.Log("changed adam state: " + state);
 
     }
 
-    public void Restart() {
-
-        StartFirstDemo = 0;
-        StartSecDemo = 0;
-        StartSecHold = 0;
-
-
-    }
 
 
 }
