@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Packages/HoloToolkit-Examples/SceneLauncher/Scenes/SceneLauncher.unity
-    guid: fd656d2febd0dea46b3825b704706806
+    path: Assets/_Scenes/MAAD.unity
+    guid: 522f71412d288514486a7e76dc05a502

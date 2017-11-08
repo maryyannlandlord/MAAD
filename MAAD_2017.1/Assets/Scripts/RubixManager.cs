@@ -211,10 +211,10 @@ public class RubixManager : MonoBehaviour {
         {
             if (tracker.found) {
 
-                if (tracker.mTrackableBehaviour.TrackableName == "Astronaut") {
+                if (tracker.mTrackableBehaviour.TrackableName == "Tracker4") {
                     if (currentStage == RubixTargetState.FirstTracker)
                     {
-                        Debug.Log("Astronaut!");
+                        Debug.Log("Tracker4!");
                         Success(currentStage);
                         currentStage = RubixTargetState.SecTracker;
 
