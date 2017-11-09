@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: 67be2aa116b70d444b5e7a57346c1f82
+timeCreated: 1510205919
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: BigTree
+    100002: BigTree 1
+    100004: Mesh
+    100006: Mesh1
+    100008: Mesh2
+    100010: Mesh3
+    100012: Objects
+    100014: Platonic:Mesh
+    100016: Podium2
+    100018: Podium:Vase32:Vase_32
+    100020: Podium_v2:AguamarinaOscura
+    100022: Podium_v2:pCube1
+    100024: Podium_v2:pSphere1
+    100026: Podium_v2:Table
+    100028: SpaceBox:VirtualEnvironment_0002:pCube1
+    100030: //RootNode
+    100032: Tree2_V1:group1
+    100034: Tree2_V1:Tree_V1_0001:BigClokc
+    100036: Tree2_V1:Tree_V1_0001:BigTree
+    100038: Tree2_V1:Tree_V1_0001:Mesh
+    100040: Tree2_V1:Tree_V1_0001:Mesh1
+    100042: Tree2_V1:Tree_V1_0001:Mesh2
+    100044: Tree2_V1:Tree_V1_0001:Mesh3
+    100046: Tree2_V1:Tree_V1_0001:Objects
+    100048: Tree2_V1:Tree_V1_0001:Platonic:Mesh
+    100050: Tree2_V1:Tree_V1_0001:pPyramid1
+    100052: Tree2_V1:Tree_V1_0001:pPyramid2
+    100054: Tree2_V1:Tree_V1_0001:transform1
+    100056: Tree2_V1:Tree_V1_0001:transform2
+    100058: Tree2_V1:Tree_V1_0001:TreeBig
+    100060: Tree2_V1:Tree_V1_0001:Treev1_0001:AguamarinaOscura
+    100062: Tree2_V1:Tree_V1_0001:Treev1_0001:Blue
+    100064: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue
+    100066: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue2
+    100068: Tree2_V1:Tree_V1_0001:Treev1_0001:Gold
+    100070: Tree2_V1:Tree_V1_0001:Treev1_0001:LowerLightGreen
+    100072: Tree2_V1:Tree_V1_0001:Treev1_0001:SecondDarkGreen
+    100074: Tree2_V1:Tree_V1_0001:Treev1_0001:Spheres
+    100076: TreeBig
+    100078: Treev1_0001:AguamarinaOscura
+    100080: Treev1_0001:Blue
+    100082: Treev1_0001:DarkBlue
+    100084: Treev1_0001:DarkBlue2
+    100086: Treev1_0001:Gold
+    100088: Treev1_0001:LowerLightGreen
+    100090: Treev1_0001:SecondDarkGreen
+    400000: BigTree
+    400002: BigTree 1
+    400004: Mesh
+    400006: Mesh1
+    400008: Mesh2
+    400010: Mesh3
+    400012: Objects
+    400014: Platonic:Mesh
+    400016: Podium2
+    400018: Podium:Vase32:Vase_32
+    400020: Podium_v2:AguamarinaOscura
+    400022: Podium_v2:pCube1
+    400024: Podium_v2:pSphere1
+    400026: Podium_v2:Table
+    400028: SpaceBox:VirtualEnvironment_0002:pCube1
+    400030: //RootNode
+    400032: Tree2_V1:group1
+    400034: Tree2_V1:Tree_V1_0001:BigClokc
+    400036: Tree2_V1:Tree_V1_0001:BigTree
+    400038: Tree2_V1:Tree_V1_0001:Mesh
+    400040: Tree2_V1:Tree_V1_0001:Mesh1
+    400042: Tree2_V1:Tree_V1_0001:Mesh2
+    400044: Tree2_V1:Tree_V1_0001:Mesh3
+    400046: Tree2_V1:Tree_V1_0001:Objects
+    400048: Tree2_V1:Tree_V1_0001:Platonic:Mesh
+    400050: Tree2_V1:Tree_V1_0001:pPyramid1
+    400052: Tree2_V1:Tree_V1_0001:pPyramid2
+    400054: Tree2_V1:Tree_V1_0001:transform1
+    400056: Tree2_V1:Tree_V1_0001:transform2
+    400058: Tree2_V1:Tree_V1_0001:TreeBig
+    400060: Tree2_V1:Tree_V1_0001:Treev1_0001:AguamarinaOscura
+    400062: Tree2_V1:Tree_V1_0001:Treev1_0001:Blue
+    400064: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue
+    400066: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue2
+    400068: Tree2_V1:Tree_V1_0001:Treev1_0001:Gold
+    400070: Tree2_V1:Tree_V1_0001:Treev1_0001:LowerLightGreen
+    400072: Tree2_V1:Tree_V1_0001:Treev1_0001:SecondDarkGreen
+    400074: Tree2_V1:Tree_V1_0001:Treev1_0001:Spheres
+    400076: TreeBig
+    400078: Treev1_0001:AguamarinaOscura
+    400080: Treev1_0001:Blue
+    400082: Treev1_0001:DarkBlue
+    400084: Treev1_0001:DarkBlue2
+    400086: Treev1_0001:Gold
+    400088: Treev1_0001:LowerLightGreen
+    400090: Treev1_0001:SecondDarkGreen
+    2300000: Mesh
+    2300002: Mesh1
+    2300004: Mesh2
+    2300006: Mesh3
+    2300008: Platonic:Mesh
+    2300010: Podium:Vase32:Vase_32
+    2300012: Podium_v2:AguamarinaOscura
+    2300014: Podium_v2:pCube1
+    2300016: Podium_v2:pSphere1
+    2300018: Podium_v2:Table
+    2300020: SpaceBox:VirtualEnvironment_0002:pCube1
+    2300022: Tree2_V1:Tree_V1_0001:Mesh
+    2300024: Tree2_V1:Tree_V1_0001:Mesh1
+    2300026: Tree2_V1:Tree_V1_0001:Mesh2
+    2300028: Tree2_V1:Tree_V1_0001:Mesh3
+    2300030: Tree2_V1:Tree_V1_0001:Platonic:Mesh
+    2300032: Tree2_V1:Tree_V1_0001:Treev1_0001:AguamarinaOscura
+    2300034: Tree2_V1:Tree_V1_0001:Treev1_0001:Blue
+    2300036: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue
+    2300038: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue2
+    2300040: Tree2_V1:Tree_V1_0001:Treev1_0001:Gold
+    2300042: Tree2_V1:Tree_V1_0001:Treev1_0001:LowerLightGreen
+    2300044: Tree2_V1:Tree_V1_0001:Treev1_0001:SecondDarkGreen
+    2300046: Treev1_0001:AguamarinaOscura
+    2300048: Treev1_0001:Blue
+    2300050: Treev1_0001:DarkBlue
+    2300052: Treev1_0001:DarkBlue2
+    2300054: Treev1_0001:Gold
+    2300056: Treev1_0001:LowerLightGreen
+    2300058: Treev1_0001:SecondDarkGreen
+    3300000: Mesh
+    3300002: Mesh1
+    3300004: Mesh2
+    3300006: Mesh3
+    3300008: Platonic:Mesh
+    3300010: Podium:Vase32:Vase_32
+    3300012: Podium_v2:AguamarinaOscura
+    3300014: Podium_v2:pCube1
+    3300016: Podium_v2:pSphere1
+    3300018: Podium_v2:Table
+    3300020: SpaceBox:VirtualEnvironment_0002:pCube1
+    3300022: Tree2_V1:Tree_V1_0001:Mesh
+    3300024: Tree2_V1:Tree_V1_0001:Mesh1
+    3300026: Tree2_V1:Tree_V1_0001:Mesh2
+    3300028: Tree2_V1:Tree_V1_0001:Mesh3
+    3300030: Tree2_V1:Tree_V1_0001:Platonic:Mesh
+    3300032: Tree2_V1:Tree_V1_0001:Treev1_0001:AguamarinaOscura
+    3300034: Tree2_V1:Tree_V1_0001:Treev1_0001:Blue
+    3300036: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue
+    3300038: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue2
+    3300040: Tree2_V1:Tree_V1_0001:Treev1_0001:Gold
+    3300042: Tree2_V1:Tree_V1_0001:Treev1_0001:LowerLightGreen
+    3300044: Tree2_V1:Tree_V1_0001:Treev1_0001:SecondDarkGreen
+    3300046: Treev1_0001:AguamarinaOscura
+    3300048: Treev1_0001:Blue
+    3300050: Treev1_0001:DarkBlue
+    3300052: Treev1_0001:DarkBlue2
+    3300054: Treev1_0001:Gold
+    3300056: Treev1_0001:LowerLightGreen
+    3300058: Treev1_0001:SecondDarkGreen
+    4300000: Podium_v2:Table
+    4300002: Podium_v2:pCube1
+    4300004: Podium_v2:AguamarinaOscura
+    4300006: Podium:Vase32:Vase_32
+    4300008: SpaceBox:VirtualEnvironment_0002:pCube1
+    4300010: Podium_v2:pSphere1
+    4300012: Treev1_0001:AguamarinaOscura
+    4300014: Treev1_0001:LowerLightGreen
+    4300016: Treev1_0001:SecondDarkGreen
+    4300018: Treev1_0001:Blue
+    4300020: Treev1_0001:DarkBlue
+    4300022: Treev1_0001:DarkBlue2
+    4300024: Treev1_0001:Gold
+    4300026: Mesh3
+    4300028: Mesh2
+    4300030: Mesh1
+    4300032: Mesh
+    4300034: Platonic:Mesh
+    4300036: Tree2_V1:Tree_V1_0001:Treev1_0001:AguamarinaOscura
+    4300038: Tree2_V1:Tree_V1_0001:Treev1_0001:LowerLightGreen
+    4300040: Tree2_V1:Tree_V1_0001:Treev1_0001:SecondDarkGreen
+    4300042: Tree2_V1:Tree_V1_0001:Treev1_0001:Blue
+    4300044: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue
+    4300046: Tree2_V1:Tree_V1_0001:Treev1_0001:DarkBlue2
+    4300048: Tree2_V1:Tree_V1_0001:Treev1_0001:Gold
+    4300050: Tree2_V1:Tree_V1_0001:Mesh3
+    4300052: Tree2_V1:Tree_V1_0001:Mesh2
+    4300054: Tree2_V1:Tree_V1_0001:Mesh1
+    4300056: Tree2_V1:Tree_V1_0001:Mesh
+    4300058: Tree2_V1:Tree_V1_0001:Platonic:Mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

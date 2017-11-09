@@ -94,8 +94,7 @@ public class RubixManager : MonoBehaviour {
         }
         else if (adam.state == AdamState.Fly)
         {
-            /*currentPosition = (Time.time - startTime)/tripTime; */
-
+            
             adam.transform.position = Vector3.Lerp(adam.transform.position, adam.flyTarget.position, FlySpeed);
             adam.transform.rotation = Quaternion.LookRotation(playerTransform.position - adam.transform.position); // if player runs...adam will chase them....
             Debug.Log("Destination:" + adam.flyTarget);
@@ -211,10 +210,10 @@ public class RubixManager : MonoBehaviour {
         {
             if (tracker.found) {
 
-                if (tracker.mTrackableBehaviour.TrackableName == "Tracker4") {
+                if (tracker.mTrackableBehaviour.TrackableName == "LargeTracker2") {
                     if (currentStage == RubixTargetState.FirstTracker)
                     {
-                        Debug.Log("Tracker4!");
+                        Debug.Log("TrackerFound!");
                         Success(currentStage);
                         currentStage = RubixTargetState.SecTracker;
 
