@@ -20,7 +20,8 @@ public enum AdamState
     Eating, 
     Surprise, 
     Investigate, 
-    Welcome
+    Welcome, 
+    Melting
 }
 
 
@@ -61,6 +62,7 @@ public class AdamBehavior : MonoBehaviour
     public Transform flyTarget;
     public bool firstContact;
 
+
     private void Awake()
     {
         AdamAnchor = _adamAnchor;
@@ -72,6 +74,7 @@ public class AdamBehavior : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rubix = GameObject.Find("Rubix").GetComponent<RubixManager>();
+        
 
 
         StartFirstDemo = 0;
@@ -171,7 +174,19 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Fly:
                  animator.SetFloat("Fly", .1f);
-                 flyTarget = (rubix.currentStage == RubixTargetState.Welcome) ? AdamAnchor : TargetPoint2;
+                if (rubix.currentStage == RubixTargetState.Intro)
+                {
+                    flyTarget = AdamAnchor;
+                }
+                else if (rubix.currentStage == RubixTargetState.Welcome)
+                {
+                    flyTarget = TargetPoint1;
+                }
+                else if (rubix.currentStage == RubixTargetState.FirstTracker) {
+
+                    flyTarget = TargetPoint2;
+                }
+                 //flyTarget = (rubix.currentStage == RubixTargetState.Welcome) ? AdamAnchor : TargetPoint2;
                  break;
             case AdamState.FirstDemo:
                 StartFirstDemo = Time.time;

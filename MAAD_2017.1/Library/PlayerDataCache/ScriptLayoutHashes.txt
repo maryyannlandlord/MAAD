@@ -324,7 +324,7 @@ f7cf9e253f09e4ec8daa4fc98b6daae3 Assembly-CSharp.dll:HoloToolkit.UI.Keyboard.Key
 952bc8ce2ca727c70d8e698a24875af8 Assembly-CSharp.dll:HoloToolkit.Examples.Prototyping.CycleStatusDisplay
 ce610f1f07fce1af31f7a0c83c795c10 Assembly-CSharp.dll:HoloToolkit.Examples.InteractiveElements.InteractiveWidgetStateTest
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AboutScreen
-d842dbbe1286bd9ba1db84fa54f6eedc Assembly-CSharp.dll:.RubixManager
+353061fd70d15b10ab1c157b19ed6623 Assembly-CSharp.dll:.RubixManager
 24ccda7d9768f21e49a1e5334c1761a6 Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.Tests.OnFocusEvent
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.Tests.TextToSpeechTest
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft

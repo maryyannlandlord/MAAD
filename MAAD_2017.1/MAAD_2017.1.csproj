@@ -94,7 +94,6 @@
     <Compile Include="Assets\Common\SplashAbout\LoadingScreen.cs" />
     <Compile Include="Assets\Common\TapHandler.cs" />
     <Compile Include="Assets\Common\TrackableSettings.cs" />
-    <Compile Include="Assets\ControlCam.cs" />
     <Compile Include="Assets\Packages\HoloToolkit\Input\Scripts\Cursor\AnimatedCursor.cs" />
     <Compile Include="Assets\Packages\HoloToolkit\Input\Scripts\Cursor\Cursor.cs" />
     <Compile Include="Assets\Packages\HoloToolkit\Input\Scripts\Cursor\CursorModifier.cs" />
@@ -500,6 +499,7 @@
     <Compile Include="Assets\Packages\HoloToolkit-Tests\Utilities\Scripts\TextToSpeechTest.cs" />
     <Compile Include="Assets\Scripts\AdamBehavior.cs" />
     <Compile Include="Assets\Scripts\AudioController.cs" />
+    <Compile Include="Assets\Scripts\ControlCam.cs" />
     <Compile Include="Assets\Scripts\flowerBehavior.cs" />
     <Compile Include="Assets\Scripts\RandomizeAudio.cs" />
     <Compile Include="Assets\Scripts\RubixManager.cs" />

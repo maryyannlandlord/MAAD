@@ -16,6 +16,7 @@ namespace Vuforia
     /// </summary>
     public class VuforiaBehaviour : VuforiaAbstractBehaviour
     {
+        
         protected override void Awake()
         {
             AddOSSpecificExternalDatasetSearchDirs();
@@ -78,5 +79,6 @@ namespace Vuforia
             }
 #endif //UNITY_ANDROID
         }
+        
     }
 }
