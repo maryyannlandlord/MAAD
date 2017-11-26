@@ -225,7 +225,7 @@ public class RubixManager : MonoBehaviour {
                 }
             }
         }
-        else if (adam.state == AdamState.SecHold && currentStage == RubixTargetState.SecTracker)
+        else if (adam.state == AdamState.SecHold)
         {
             if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[3]) // 50seconds
             {
@@ -263,18 +263,19 @@ public class RubixManager : MonoBehaviour {
 
                 Debug.Log("You found a tracker!");
 
-                if (tracker.mTrackableBehaviour.TrackableName == "LargeTracker2") {
-                    if (currentStage == RubixTargetState.FirstTracker)
+                if (tracker.mTrackableBehaviour.TrackableName == "1_tracker") {
+                    if (currentStage == RubixTargetState.FirstTracker && (adam.state == AdamState.FirstHold || adam.state == AdamState.FirstDemo))
                     {
                         Debug.Log("TrackerFound!");
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1); // currentStage -> SecTracker
+                        Debug.Log("After found 1st tracker stage: " + currentStage);
 
                     }
                 }
 
                 // fix this -> 
-                else if (tracker.mTrackableBehaviour.TrackableName == "LargeTracker3") { // Melting Tracker 
+                else if (tracker.mTrackableBehaviour.TrackableName == "3_Largetracker" && (adam.state == AdamState.SecDemo || adam.state == AdamState.SecHold)) { // Melting Tracker 
                     if (currentStage == RubixTargetState.SecTracker) {
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1);
@@ -309,7 +310,6 @@ public class RubixManager : MonoBehaviour {
             case RubixTargetState.SecTracker:
                 Debug.Log("Second Success!");
                 //everything gets sucked into cube 
-                //play visual music
                 musicRenderer.enabled = true;
                 musicPlayer.Play();
                 AudioController.PlayAudioSource(musicSphere);

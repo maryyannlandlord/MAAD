@@ -146,6 +146,9 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Welcome:
                 animator.SetBool("Welcome", false);
                 break;
+            case AdamState.Melting:
+                animator.SetBool("Melting", false);
+                break; 
 
 
 
@@ -217,7 +220,10 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Welcome:
                 StartWelcome = Time.time; 
                 animator.SetBool("Welcome", true);
-                break; 
+                break;
+            case AdamState.Melting:
+                animator.SetBool("Melting", true);
+                break;
 
 
         }

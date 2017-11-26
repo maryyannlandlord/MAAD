@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="LargeTracker5" size="0.085000 0.047520" />
-    <ImageTarget name="LargeTracker4" size="0.085000 0.047520" />
-    <ImageTarget name="LargeTracker3" size="0.085000 0.047520" />
-    <ImageTarget name="LargeTracker2" size="0.085000 0.047520" />
-    <ImageTarget name="LargeTracker1" size="0.085000 0.047520" />
-    <ImageTarget name="Tracker5" size="0.040000 0.040066" />
-    <ImageTarget name="Tracker4" size="0.040000 0.040066" />
-    <ImageTarget name="Tracker3" size="0.040000 0.040066" />
-    <ImageTarget name="Tracker2" size="0.040000 0.040066" />
-    <ImageTarget name="Tracker1" size="0.040000 0.040066" />
+    <ImageTarget name="3_Largetracker" size="0.101600 0.056800" />
+    <ImageTarget name="2_tracker" size="0.076200 0.076326" />
+    <ImageTarget name="1_tracker" size="0.076200 0.076326" />
   </Tracking>
 </QCARConfig>
