@@ -225,7 +225,7 @@ public class RubixManager : MonoBehaviour {
                 }
             }
         }
-        else if (adam.state == AdamState.SecHold)
+        else if (adam.state == AdamState.SecHold && currentStage == RubixTargetState.SecTracker)
         {
             if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[3]) // 50seconds
             {
@@ -313,10 +313,12 @@ public class RubixManager : MonoBehaviour {
                 musicRenderer.enabled = true;
                 musicPlayer.Play();
                 AudioController.PlayAudioSource(musicSphere);
+                adam.SetState(AdamState.Hiding);
                 break;
             case RubixTargetState.End:
                 //adam.SetState(AdamState.Rebirth); 
                 //trigger flowers
+
                 break;
         }
     }
