@@ -500,12 +500,14 @@
     <Compile Include="Assets\Scripts\AdamBehavior.cs" />
     <Compile Include="Assets\Scripts\AudioController.cs" />
     <Compile Include="Assets\Scripts\ControlCam.cs" />
+    <Compile Include="Assets\Scripts\Fade.cs" />
     <Compile Include="Assets\Scripts\flowerBehavior.cs" />
     <Compile Include="Assets\Scripts\RandomizeAudio.cs" />
     <Compile Include="Assets\Scripts\RubixManager.cs" />
     <Compile Include="Assets\Scripts\Scene_Manager.cs" />
     <Compile Include="Assets\Scripts\SpawnSphere.cs" />
     <Compile Include="Assets\Scripts\SurpriseTrigger.cs" />
+    <Compile Include="Assets\Scripts\Temp.cs" />
     <Compile Include="Assets\Scripts\VoiceCommands.cs" />
     <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
     <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />

@@ -21,7 +21,8 @@ public enum AdamState
     Surprise, 
     Investigate, 
     Welcome, 
-    Melting
+    Melting,
+    Fading
 }
 
 
@@ -29,6 +30,8 @@ public class AdamBehavior : MonoBehaviour
 {
     Animator animator;
     RubixManager rubix;
+    [HideInInspector]
+    public Fade adamFade;
     
 
     public Renderer[] renderers;
@@ -60,7 +63,6 @@ public class AdamBehavior : MonoBehaviour
     public Transform TargetPoint2; 
     [HideInInspector]
     public Transform flyTarget;
-    public bool firstContact;
 
 
     private void Awake()
@@ -74,7 +76,7 @@ public class AdamBehavior : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rubix = GameObject.Find("Rubix").GetComponent<RubixManager>();
-        
+        adamFade = this.GetComponent<Fade>(); 
 
 
         StartFirstDemo = 0;
@@ -86,7 +88,7 @@ public class AdamBehavior : MonoBehaviour
         StartIdle = 0;
         StartWelcome = 0;
 
-        firstContact = false; 
+
 
     }
 
@@ -148,7 +150,11 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", false);
+                break;
+            case AdamState.Fading:
                 break; 
+
+         
 
 
 
@@ -223,6 +229,9 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", true);
+                break;
+            case AdamState.Fading:
+                if (!adamFade.Wait(adamFade.sec)) adamFade.Fading();
                 break;
 
 

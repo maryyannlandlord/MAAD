@@ -20,6 +20,7 @@ public enum RubixTargetState
 public class RubixManager : MonoBehaviour {
 
     AdamBehavior adam;
+    public Fade[] faders; 
     public flowerBehavior[] flower;
     Transform targetPlayerLOS;
 
@@ -44,9 +45,6 @@ public class RubixManager : MonoBehaviour {
     public float rotSpeed = 0.02f;
 
 
-    //public float alpha; 
-    //private Renderer renderer;
-    //private Color textureColor;
     public GameObject musicSphere;
     private Renderer musicRenderer;
     private VideoPlayer musicPlayer;
@@ -73,8 +71,6 @@ public class RubixManager : MonoBehaviour {
 
         //targetPlayerLOS = AdamBehavior.AdamAnchor;
 
-        //renderer = this.GetComponent<Renderer>();
-        //textureColor = renderer.materials;
 
         musicRenderer = musicSphere.GetComponent<Renderer>();
         musicRenderer.enabled = false;
@@ -87,8 +83,6 @@ public class RubixManager : MonoBehaviour {
     void Update() {
         WorldState();
         TrackerStatus();
-        //Debug.Log("Rubix alpha:" + this.textureColor.a);
-        //Xray();
     }
 
     public void WorldState() {
@@ -231,24 +225,30 @@ public class RubixManager : MonoBehaviour {
             {
                 Debug.Log("50 seconds!");
                 // pedistal glows more 
-                // Adam melt loop
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
             {
                 Debug.Log("45 seconds!");
                 // pedistal glows 
-                // Adam melt loop
 
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 30 seconds
             {
                 Debug.Log("30 seconds!");
                 adam.SetState(AdamState.Melting);
+
+
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[0]) // 20 seconds
             {
                 Debug.Log("20 seconds!");
+                adam.SetState(AdamState.Fading);
                 // room changing color??? what's happening here (need a melt idle) 
+
+                foreach (Fade f in faders)
+                {
+                    if (!f.Wait(f.sec)) f.Fading();
+                }
             }
 
 
@@ -274,11 +274,11 @@ public class RubixManager : MonoBehaviour {
                     }
                 }
 
-                // fix this -> 
                 else if (tracker.mTrackableBehaviour.TrackableName == "3_Largetracker" && (adam.state == AdamState.SecDemo || adam.state == AdamState.SecHold)) { // Melting Tracker 
                     if (currentStage == RubixTargetState.SecTracker) {
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1);
+                        
                         Debug.Log("LargetTracker3!");
                     }
 
@@ -309,11 +309,27 @@ public class RubixManager : MonoBehaviour {
                 break;
             case RubixTargetState.SecTracker:
                 Debug.Log("Second Success!");
-                //everything gets sucked into cube 
+                 
                 musicRenderer.enabled = true;
                 musicPlayer.Play();
                 AudioController.PlayAudioSource(musicSphere);
-                adam.SetState(AdamState.Hiding);
+
+                foreach (Fade f in faders)
+                {
+                    if (f != null)
+                    {
+                        f.duration = 3.0;
+                        f.sec = 1.0f;
+                    }
+                }
+
+                if (adam.adamFade != null)
+                {
+                    adam.adamFade.sec = 1.0f;
+                    adam.adamFade.duration = 3.0; 
+                }
+
+                // if the fade isn't null, complete or pause fade  for environment and Adam
                 break;
             case RubixTargetState.End:
                 //adam.SetState(AdamState.Rebirth); 
@@ -348,10 +364,6 @@ public class RubixManager : MonoBehaviour {
         if (Success != null) Success(currentStage);
         currentStage = (RubixTargetState)((int)currentStage + 1);
         Debug.Log("Rubix State:" + currentStage);
-    }
-
-    public void Xray() {
-        /////
     }
 
 
