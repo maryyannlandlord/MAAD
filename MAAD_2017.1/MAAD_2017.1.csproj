@@ -501,6 +501,7 @@
     <Compile Include="Assets\Scripts\AudioController.cs" />
     <Compile Include="Assets\Scripts\ControlCam.cs" />
     <Compile Include="Assets\Scripts\Fade.cs" />
+    <Compile Include="Assets\Scripts\FadeObject.cs" />
     <Compile Include="Assets\Scripts\flowerBehavior.cs" />
     <Compile Include="Assets\Scripts\RandomizeAudio.cs" />
     <Compile Include="Assets\Scripts\RubixManager.cs" />

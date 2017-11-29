@@ -231,7 +231,7 @@ public class AdamBehavior : MonoBehaviour
                 animator.SetBool("Melting", true);
                 break;
             case AdamState.Fading:
-                if (!adamFade.Wait(adamFade.sec)) adamFade.Fading();
+                //if (!adamFade.Wait(adamFade.sec)) adamFade.Fading();
                 break;
 
 

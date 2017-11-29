@@ -245,10 +245,10 @@ public class RubixManager : MonoBehaviour {
                 adam.SetState(AdamState.Fading);
                 // room changing color??? what's happening here (need a melt idle) 
 
-                foreach (Fade f in faders)
-                {
-                    if (!f.Wait(f.sec)) f.Fading();
-                }
+                //foreach (Fade f in faders)
+                //{
+                  //  if (!f.Wait(f.sec)) f.Fading();
+                //}
             }
 
 

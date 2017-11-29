@@ -7,9 +7,11 @@ using UnityEngine;
     public class Fade : MonoBehaviour
     {
         
-        Material[] m_Material;
-        Color[] colorEnd;
-        Color[] colorStart;
+        private Material m_Material;
+        //private Renderer[] renderers; 
+ 
+        Color colorEnd;
+        Color colorStart;
         public double duration = 45.0;
         public float sec = 3.0f;
         private double t = 0.0;
@@ -18,48 +20,78 @@ using UnityEngine;
         private int arrayPos = 0; 
         private int colFadePos = 0;
 
-        private int counter = 0; 
+        //private int matLength; 
+        //private int counter = 0; 
 
+        //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
         //FadeColors fader;
-
-        private IEnumerator coroutine;
+        //private IEnumerator coroutine;
+        //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
 
         // Use this for initialization
         void Start()
         {
-            foreach (Renderer r in this.GetComponentsInChildren<Renderer>())
-            {
-                m_Material = r.sharedMaterials;
-                Debug.Log("materials: " + m_Material[counter]);
-               // if(counter < m_Material.Length) counter++; 
-            }
 
-        foreach (Material m in m_Material) {
-            
+
+
+        //renderers = this.GetComponentsInChildren<Renderer>();
+        //UpdateMaterials();
+
+        m_Material = this.GetComponent<Renderer>().material;
+
+        colorStart = m_Material.color;
+        colorEnd = new Color((float)colorStart.r, (float)colorStart.g, (float)colorStart.b, 0.0f);
+
+
+        /*
+        foreach (Material m in m_Material)
+        {
+
             colorStart[arrayPos] = m.color;
             colorEnd[arrayPos] = new Color((float)colorStart[arrayPos].r, (float)colorStart[arrayPos].g, (float)colorStart[arrayPos].b, 0.0f);
             arrayPos++; 
         }
-            
+        */
 
-            //fader = this.GetComponent<FadeColors>();
-            //coroutine = FadeOut();
-            //StartCoroutine(coroutine);
 
-        }
+        //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
+        //fader = this.GetComponent<FadeColors>();
+        //coroutine = FadeOut();
+        //StartCoroutine(coroutine);
+        //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
 
-        // Update is called once per frame
-        void Update()
+    }
+
+    // Update is called once per frame
+    void Update()
         {
-            //fader.FadeOut(true);
-            
-            //coroutine = FadeOut();
-            //StartCoroutine(coroutine);
+        //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
+        //fader.FadeOut(true);
+        //coroutine = FadeOut();
+        //StartCoroutine(coroutine);
+        //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
 
-            //if (!Wait(3)) Fading(); 
+        if (!Wait(3)) Fading(); 
 
 
         }
+        /*public void UpdateMaterials()
+        {
+
+            if (m_Material == null)
+            {
+                m_Material = new Material[renderers.Length];
+
+                foreach (Renderer r in renderers) //go through all the renderers found in the children 
+                {
+
+                    matLength = (r.GetComponent<Renderer>().material).Length;
+
+                    Debug.Log( r + ": " + matLength);
+
+                }
+            }
+        }*/
 
         public void Fading()
         {
@@ -67,14 +99,17 @@ using UnityEngine;
 
             if (t < duration)
             {
-                foreach (Material mFade in m_Material)
-                {
-                    mFade.color = Color.Lerp(colorStart[colFadePos], colorEnd[colFadePos], (float)(t / duration));
-                    t += Time.deltaTime;
-                    colFadePos++;
-                }
+                m_Material.color = Color.Lerp(colorStart, colorEnd, (float)(t / duration));
+                t += Time.deltaTime;
 
-            }
+            /*foreach (Material mFade in m_Material)
+            {
+                mFade.color = Color.Lerp(colorStart[colFadePos], colorEnd[colFadePos], (float)(t / duration));
+                t += Time.deltaTime;
+                colFadePos++;
+            }*/
+
+        }
             return;
         }
 
@@ -89,15 +124,18 @@ using UnityEngine;
 
         }
 
-        /*
-        private IEnumerator FadeOut()
+
+    //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
+    /*
+    private IEnumerator FadeOut()
+    {
+        Debug.Log("Fading out");
+        for (double t = 0.0; t < duration; t += Time.deltaTime)
         {
-            Debug.Log("Fading out");
-            for (double t = 0.0; t < duration; t += Time.deltaTime)
-            {
-                m_Material.color = Color.Lerp(colorStart, colorEnd, (float) (t / duration));
-                yield return null;
-            }
-        }*/
-    
+            m_Material.color = Color.Lerp(colorStart, colorEnd, (float) (t / duration));
+            yield return null;
+        }
+    }*/
+    //////////////////////////////////////////////////IGNORE////////////////////////////////////////////////////////////////////
+
 }

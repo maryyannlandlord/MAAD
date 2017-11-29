@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scenes/MAAD.unity
+- path: Assets/_Scenes/Spherical Image.unity
   isLoaded: 1
   isActive: 1

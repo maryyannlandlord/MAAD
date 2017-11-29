@@ -1228,19 +1228,6 @@ MonoBehaviour:
   TargetPoint1: {fileID: 1351677205}
   TargetPoint2: {fileID: 32018769}
   flyTarget: {fileID: 0}
---- !u!114 &752796463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 752796461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0405caf5774cfc040821c704d13e4214, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 20
-  sec: 3
 --- !u!1001 &841318236
 Prefab:
   m_ObjectHideFlags: 0
@@ -2544,7 +2531,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: AstronautMaterial
+  m_Name: 1_trackerMaterial
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -2575,7 +2562,6 @@ GameObject:
   - component: {fileID: 1649153106}
   - component: {fileID: 1649153105}
   - component: {fileID: 1649153109}
-  - component: {fileID: 1649153110}
   m_Layer: 0
   m_Name: Rubix
   m_TagString: Untagged
@@ -2682,26 +2668,6 @@ MonoBehaviour:
   rotSpeed: 0.17
   musicSphere: {fileID: 258289798}
   playerTransform: {fileID: 535939063}
---- !u!114 &1649153110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1649153104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbcc3bffdc28b04080c4c5af0bb5bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetObject: {fileID: 1649153104}
-  LerpType: 0
-  LerpTime: 3
-  IsRunning: 0
-  OnComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!1001 &1667024892
 Prefab:
   m_ObjectHideFlags: 0
@@ -2929,6 +2895,11 @@ Prefab:
     - target: {fileID: 82421409580769418, guid: 84b86a2dfc2c909468711d6405f2893d,
         type: 2}
       propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23488188951751162, guid: 84b86a2dfc2c909468711d6405f2893d,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/MAAD.unity
-    guid: 522f71412d288514486a7e76dc05a502
+    path: Assets/_Scenes/Yokai Test.unity
+    guid: 2bafa3d0eadc3684f8990a5b12a97987
