@@ -16,7 +16,7 @@ public class Temp : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!fader.Wait(3)) fader.Fading();
+        if (fader.Wait(3)) fader.Fading();
 
     }
 }

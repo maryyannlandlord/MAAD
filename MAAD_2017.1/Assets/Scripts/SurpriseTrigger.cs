@@ -24,6 +24,8 @@ public class SurpriseTrigger : MonoBehaviour {
             Debug.Log("Triggered!");
             _triggered = true;
             AudioController.PlayAudioSource(gameObject);
+
+            
         }
 
     }

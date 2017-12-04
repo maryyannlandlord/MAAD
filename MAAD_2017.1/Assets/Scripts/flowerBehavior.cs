@@ -12,11 +12,12 @@ public enum FlowerState
 public class flowerBehavior : MonoBehaviour {
 
     Animator animator;
-    public FlowerState state; 
-   
+    public FlowerState state;
+    public GameObject[] flowerSounds; 
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
 
         animator = GetComponent<Animator>(); 
 
@@ -46,6 +47,12 @@ public class flowerBehavior : MonoBehaviour {
                 break;
             case FlowerState.Bloom:
                 animator.SetBool("Bloom", true);
+
+                foreach(GameObject sound in flowerSounds)
+                {
+                    AudioController.PlayAudioSource(sound);
+                }
+
                 break;
             
         }

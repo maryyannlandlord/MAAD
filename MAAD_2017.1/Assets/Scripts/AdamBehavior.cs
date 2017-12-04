@@ -22,7 +22,7 @@ public enum AdamState
     Investigate, 
     Welcome, 
     Melting,
-    Fading
+    FreakOut
 }
 
 
@@ -30,11 +30,16 @@ public class AdamBehavior : MonoBehaviour
 {
     Animator animator;
     RubixManager rubix;
-    [HideInInspector]
-    public Fade adamFade;
     
 
     public Renderer[] renderers;
+    [HideInInspector]
+    public Renderer tracker1;
+    [HideInInspector]
+    public Renderer tracker2;
+    [HideInInspector]
+    public Renderer tracker3; 
+
 
     public AdamState state;
 
@@ -76,8 +81,13 @@ public class AdamBehavior : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rubix = GameObject.Find("Rubix").GetComponent<RubixManager>();
-        adamFade = this.GetComponent<Fade>(); 
+        tracker1 = GameObject.Find("1_Tracker").GetComponent<Renderer>();
+        tracker2 = GameObject.Find("2_Tracker").GetComponent<Renderer>();
+        tracker3 = GameObject.Find("3_Tracker").GetComponent<Renderer>();
 
+        tracker1.enabled = false;
+        tracker2.enabled = false;
+        tracker3.enabled = false; 
 
         StartFirstDemo = 0;
         StartSecDemo = 0;
@@ -126,15 +136,27 @@ public class AdamBehavior : MonoBehaviour
                 break; 
             case AdamState.FirstDemo:
                 animator.SetBool("FirstDemo", false);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = false; 
                 break;
             case AdamState.FirstHold:
                 animator.SetBool("FirstHold", false);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
                 break;
             case AdamState.SecDemo:
                 animator.SetBool("SecDemo", false);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
                 break;
             case AdamState.SecHold:
                 animator.SetBool("SecHold", false);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
                 break;
             case AdamState.Eating:
                 animator.SetBool("Eating", false);
@@ -150,14 +172,17 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", false);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
+
                 break;
-            case AdamState.Fading:
-                break; 
-
-         
-
-
-
+            case AdamState.FreakOut:
+                animator.SetBool("FreakOut", false);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
+                break;
         }
         switch(state)
         {
@@ -200,17 +225,29 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.FirstDemo:
                 StartFirstDemo = Time.time;
                 animator.SetBool("FirstDemo", true);
+                tracker1.enabled = true;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
                 break;
             case AdamState.FirstHold:
                 animator.SetBool("FirstHold", true);
+                tracker1.enabled = true;
+                tracker2.enabled = false;
+                tracker3.enabled = false;
                 break;
             case AdamState.SecDemo:
                 StartSecDemo = Time.time;
                 animator.SetBool("SecDemo", true);
+                tracker1.enabled = false;
+                tracker2.enabled = true;
+                tracker3.enabled = false;
                 break;
             case AdamState.SecHold:
                 StartSecHold = Time.time;
                 animator.SetBool("SecHold", true);
+                tracker1.enabled = false;
+                tracker2.enabled = true;
+                tracker3.enabled = false;
                 break;
             case AdamState.Eating:
                 animator.SetBool("Eating", true);
@@ -229,12 +266,16 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", true);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = true;
                 break;
-            case AdamState.Fading:
-                //if (!adamFade.Wait(adamFade.sec)) adamFade.Fading();
+            case AdamState.FreakOut:
+                animator.SetBool("FreakOut", true);
+                tracker1.enabled = false;
+                tracker2.enabled = false;
+                tracker3.enabled = true;
                 break;
-
-
         }
 
     }

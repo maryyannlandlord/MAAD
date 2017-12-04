@@ -20,7 +20,8 @@ public enum RubixTargetState
 public class RubixManager : MonoBehaviour {
 
     AdamBehavior adam;
-    public Fade[] faders; 
+    public TransBetween[] faders;
+    public TransBetween adamFade; 
     public flowerBehavior[] flower;
     Transform targetPlayerLOS;
 
@@ -68,14 +69,9 @@ public class RubixManager : MonoBehaviour {
         adam = GameObject.Find("Adam").GetComponent<AdamBehavior>(); // Find Adam in the scene
         adam.SetState(AdamState.Eating); // Set Adam initial state 
 
-
-        //targetPlayerLOS = AdamBehavior.AdamAnchor;
-
-
         musicRenderer = musicSphere.GetComponent<Renderer>();
         musicRenderer.enabled = false;
         musicPlayer = musicSphere.GetComponent<VideoPlayer>(); 
-
 
     }
 
@@ -178,7 +174,7 @@ public class RubixManager : MonoBehaviour {
         }
         else if (adam.state == AdamState.Welcome) {
 
-            if ((Time.time - adam.StartWelcome) / 4.4 >= 1) {
+            if (((Time.time - adam.StartWelcome) / 4.667) >= 1) {
 
                 Debug.Log("How much time has passed:" + (Time.time - adam.StartWelcome));
 
@@ -219,38 +215,55 @@ public class RubixManager : MonoBehaviour {
                 }
             }
         }
-        else if (adam.state == AdamState.SecHold && currentStage == RubixTargetState.SecTracker)
+        else if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.SecHold) || (adam.state == AdamState.FreakOut) || (adam.state == AdamState.Melting)))
         {
-            if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[3]) // 50seconds
+            if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[3]) // 60 seconds
             {
-                Debug.Log("50 seconds!");
+                Debug.Log("60 seconds!");
                 // pedistal glows more 
+                if (adamFade.Wait(adamFade.FadewaitTime)) adamFade.Fading();
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
             {
                 Debug.Log("45 seconds!");
-                // pedistal glows 
+                
+                adam.SetState(AdamState.Melting);
+                if (adamFade.Wait(adamFade.FossilwaitTime)) adamFade.Fossilize(); 
+                // pedistal glows
+            }
+            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 40 seconds
+            {
+                Debug.Log("40 seconds!");             
+
+                foreach (TransBetween f in faders)
+                {
+                    if (f.Wait(f.FadewaitTime)) // fossilize after waiting few seconds 
+                    {
+
+                        f.Fading();
+                    }
+
+                }
 
             }
-            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 30 seconds
+            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[0]) // 30 seconds
             {
                 Debug.Log("30 seconds!");
-                adam.SetState(AdamState.Melting);
 
+                adam.SetState(AdamState.FreakOut);
 
+                foreach (TransBetween f in faders)
+                {
+                    Debug.Log("entered fossil forloop");
+                    if (f.Wait(f.FossilwaitTime)) // fossilize after waiting few seconds 
+                    {
+                        Debug.Log("fossilize!");
+                        f.Fossilize();
+                    }
+                        
+                }
+                // pedestal glow (10s 50%)
             }
-            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[0]) // 20 seconds
-            {
-                Debug.Log("20 seconds!");
-                adam.SetState(AdamState.Fading);
-                // room changing color??? what's happening here (need a melt idle) 
-
-                //foreach (Fade f in faders)
-                //{
-                  //  if (!f.Wait(f.sec)) f.Fading();
-                //}
-            }
-
 
         }
     }
@@ -263,8 +276,8 @@ public class RubixManager : MonoBehaviour {
 
                 Debug.Log("You found a tracker!");
 
-                if (tracker.mTrackableBehaviour.TrackableName == "1_tracker") {
-                    if (currentStage == RubixTargetState.FirstTracker && (adam.state == AdamState.FirstHold || adam.state == AdamState.FirstDemo))
+                if (tracker.mTrackableBehaviour.TrackableName == "MAAD_FirstTracker") {
+                    if (currentStage == RubixTargetState.FirstTracker && (adam.state == AdamState.FirstHold))
                     {
                         Debug.Log("TrackerFound!");
                         Success(currentStage);
@@ -274,11 +287,21 @@ public class RubixManager : MonoBehaviour {
                     }
                 }
 
-                else if (tracker.mTrackableBehaviour.TrackableName == "3_Largetracker" && (adam.state == AdamState.SecDemo || adam.state == AdamState.SecHold)) { // Melting Tracker 
-                    if (currentStage == RubixTargetState.SecTracker) {
+                else if (tracker.mTrackableBehaviour.TrackableName == "MAAD_ThirdTracker_v1") {
+                    Debug.Log("TrackerFound again!");
+
+                    if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.FreakOut ) || (adam.state == AdamState.Melting))) {
+                        
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1);
+
                         
+                        if (adamFade.Wait(2))
+                        {
+                            adamFade.Fadedur = 5.0f; 
+                            adamFade.Fading();
+                        } 
+
                         Debug.Log("LargetTracker3!");
                     }
 
@@ -309,27 +332,12 @@ public class RubixManager : MonoBehaviour {
                 break;
             case RubixTargetState.SecTracker:
                 Debug.Log("Second Success!");
-                 
+                
+                
                 musicRenderer.enabled = true;
-                musicPlayer.Play();
+                //musicPlayer.Play();
                 AudioController.PlayAudioSource(musicSphere);
 
-                foreach (Fade f in faders)
-                {
-                    if (f != null)
-                    {
-                        f.duration = 3.0;
-                        f.sec = 1.0f;
-                    }
-                }
-
-                if (adam.adamFade != null)
-                {
-                    adam.adamFade.sec = 1.0f;
-                    adam.adamFade.duration = 3.0; 
-                }
-
-                // if the fade isn't null, complete or pause fade  for environment and Adam
                 break;
             case RubixTargetState.End:
                 //adam.SetState(AdamState.Rebirth); 
