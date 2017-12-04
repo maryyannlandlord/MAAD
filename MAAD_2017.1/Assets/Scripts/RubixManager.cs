@@ -21,7 +21,12 @@ public class RubixManager : MonoBehaviour {
 
     AdamBehavior adam;
     public TransBetween[] faders;
-    public TransBetween adamFade; 
+    public TransBetween adamFade;
+    public TransBetween tracker1;
+    public TransBetween tracker2;
+    public TransBetween tracker3;
+
+
     public flowerBehavior[] flower;
     Transform targetPlayerLOS;
 
@@ -52,8 +57,7 @@ public class RubixManager : MonoBehaviour {
 
 
 
-    bool startTracker; // allows Interactive phyiscal experience
-    private int counter;
+
     private Quaternion newLookRot;
 
     public Transform playerTransform;
@@ -71,7 +75,7 @@ public class RubixManager : MonoBehaviour {
 
         musicRenderer = musicSphere.GetComponent<Renderer>();
         musicRenderer.enabled = false;
-        musicPlayer = musicSphere.GetComponent<VideoPlayer>(); 
+        musicPlayer = musicSphere.GetComponent<VideoPlayer>();
 
     }
 
@@ -188,6 +192,9 @@ public class RubixManager : MonoBehaviour {
         {
             newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
             adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
+
+            tracker1.FadeIn();
+            Debug.Log("show First tracker");
             if (Time.time >= adam.StartFirstDemo + FirstDemoDur)
             {
 
@@ -199,6 +206,10 @@ public class RubixManager : MonoBehaviour {
         {
             newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
             adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
+
+            tracker1.FadeOut();
+            tracker2.FadeIn();
+
             if (Time.time >= adam.StartSecDemo + SecDemoDur)
             {
                 adam.SetState(AdamState.SecHold);
@@ -211,6 +222,7 @@ public class RubixManager : MonoBehaviour {
 
                 if (currentStage == RubixTargetState.SecTracker)
                 {
+                    
                     adam.SetState(AdamState.SecDemo);
                 }
             }
@@ -221,7 +233,7 @@ public class RubixManager : MonoBehaviour {
             {
                 Debug.Log("60 seconds!");
                 // pedistal glows more 
-                if (adamFade.Wait(adamFade.FadewaitTime)) adamFade.Fading();
+                if (adamFade.Wait(adamFade.FadewaitTime)) adamFade.FadeOut();
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
             {
@@ -233,14 +245,16 @@ public class RubixManager : MonoBehaviour {
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 40 seconds
             {
-                Debug.Log("40 seconds!");             
+                Debug.Log("40 seconds!");
+                tracker3.FadeIn();
 
                 foreach (TransBetween f in faders)
                 {
                     if (f.Wait(f.FadewaitTime)) // fossilize after waiting few seconds 
                     {
 
-                        f.Fading();
+                        f.FadeOut();
+                        
                     }
 
                 }
@@ -251,6 +265,7 @@ public class RubixManager : MonoBehaviour {
                 Debug.Log("30 seconds!");
 
                 adam.SetState(AdamState.FreakOut);
+                tracker2.FadeOut();
 
                 foreach (TransBetween f in faders)
                 {
@@ -274,35 +289,36 @@ public class RubixManager : MonoBehaviour {
         {
             if (tracker.found) {
 
-                Debug.Log("You found a tracker!");
-
-                if (tracker.mTrackableBehaviour.TrackableName == "MAAD_FirstTracker") {
+                
+                //MAAD_FirstTracker
+                if (tracker.mTrackableBehaviour.TrackableName == "Astronaut") {
                     if (currentStage == RubixTargetState.FirstTracker && (adam.state == AdamState.FirstHold))
                     {
-                        Debug.Log("TrackerFound!");
+                      
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1); // currentStage -> SecTracker
-                        Debug.Log("After found 1st tracker stage: " + currentStage);
+                       
 
                     }
                 }
-
-                else if (tracker.mTrackableBehaviour.TrackableName == "MAAD_ThirdTracker_v1") {
-                    Debug.Log("TrackerFound again!");
+                //MAAD_ThirdTracker_v1
+                else if (tracker.mTrackableBehaviour.TrackableName == "Oxygen") {
+                    
 
                     if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.FreakOut ) || (adam.state == AdamState.Melting))) {
                         
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1);
 
-                        
+                        tracker3.FadeOut();
+
                         if (adamFade.Wait(2))
                         {
-                            adamFade.Fadedur = 5.0f; 
-                            adamFade.Fading();
+                            adamFade.FadeOutdur = 5.0f; 
+                            adamFade.FadeOut();
                         } 
 
-                        Debug.Log("LargetTracker3!");
+                        
                     }
 
                 }

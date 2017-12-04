@@ -12,17 +12,24 @@ public class TransBetween : MonoBehaviour
     private List<Color> Fossil_colorEnd;
     private List<Color> Alpha_colorEnd; 
     private List<Color> colorStart;
+    private List<Color> ogColor; 
 
     
-    public float Fadedur = 3.0f;
+    public float FadeOutdur = 3.0f;
+    public float FadeIndur = 3.0f;
     public float Fossildur = 3.0f;
     public float FossilwaitTime = 0.0f;
     public float FadewaitTime = 0.0f;
+
     private double t = 0.0;
     private double m = 0.0;
+    private double n = 0.0;
     private float timer = 0;
     private float timerMax = 0;
-    private bool colStartCheck = false; 
+
+    private bool colStartCheck = false;
+    private bool alphaCheck = false;
+    private float alpha; 
 
     // Use this for initialization
     void Start()
@@ -43,12 +50,18 @@ public class TransBetween : MonoBehaviour
             Fossilize();
             Debug.Log("time: " + Time.time);
         }
-        else if (Time.time < 5)
-        { Fading(); }
+        else if (Time.time < 4)
+        { FadeOut(); }
         else if (Time.time < 7)
         {
-            Fossilize(); 
+            FadeIn(); 
         }*/
+
+        ////////////////////NOTE/////////////////////
+        // if new function called before animation //
+        // is over, colStartCheck != false and     //
+        // colStart is not reset. COLOR is WRONG   //
+        /////////////////////////////////////////////
 
     }
     public void LoadMaterials()
@@ -56,8 +69,8 @@ public class TransBetween : MonoBehaviour
         if (m_Material == null)
         {
             m_Material = new List<Material>();
-
-            Fossil_colorEnd = new List<Color>(); 
+            ogColor = new List<Color>(); 
+            
 
             foreach (Renderer r in renderers) // go through all the renderers found in the children 
             {
@@ -66,27 +79,29 @@ public class TransBetween : MonoBehaviour
 
             }
 
+            foreach (Material j in m_Material)
+            {
+                float n_alpha = j.color.a; 
+               ogColor.Add(new Color((float)j.color.r, (float)j.color.g, (float)j.color.b, n_alpha));
+            }
+
         }
     }
 
-    public void Fading()
+    public void FadeOut() // Can call any time!
     {
-        int colFadePos = 0;
 
-        // if updateColStart not called then updateColStart 
         if (colStartCheck == false) updateColStart();
 
-        if (m < Fadedur)
+        if (m < FadeOutdur)
         {
 
             foreach (Material mFade in m_Material)
             {
 
-                mFade.color = new Color(mFade.color.r, mFade.color.g, mFade.color.b, (float)((Fadedur - m) / Fadedur));
+                mFade.color = new Color(mFade.color.r, mFade.color.g, mFade.color.b, (float)((FadeOutdur - m) / FadeOutdur));
                  m += Time.deltaTime;
 
-
-                colFadePos++;
             }
 
         }
@@ -95,6 +110,42 @@ public class TransBetween : MonoBehaviour
             colStartCheck = false;
         }
         return;
+    }
+
+    public void FadeIn()
+    {
+        int colFadePos = 0;
+
+        if (colStartCheck == false) updateColStart();
+
+        if (alphaCheck == false)
+        {
+            alpha = m_Material[0].color.a;
+            alphaCheck = true;
+        }
+
+        if (n < FadeIndur)
+        {
+
+            foreach (Material nFade in m_Material)
+            {
+
+                Color fadeInCol = Color.Lerp(colorStart[colFadePos], ogColor[colFadePos], (float)(n / FadeIndur));
+
+                fadeInCol.a = (alpha + (1 - alpha) * ((float) n / FadeIndur));
+                nFade.color = fadeInCol; 
+
+                n += Time.deltaTime;
+
+                colFadePos++;
+            }
+
+        }
+        else {
+            alphaCheck = false;
+            colStartCheck = false; 
+        }
+
     }
 
     public void Fossilize()
@@ -130,10 +181,12 @@ public class TransBetween : MonoBehaviour
         return;
     }
 
+
     public void updateColStart() {
 
         colorStart = new List<Color>();
         Alpha_colorEnd = new List<Color>();
+        Fossil_colorEnd = new List<Color>();
 
         foreach (Material j in m_Material)
         {
