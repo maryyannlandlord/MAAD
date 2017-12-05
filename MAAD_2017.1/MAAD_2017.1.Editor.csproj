@@ -259,6 +259,7 @@
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\iOS\Vuforia.UnityExtensions.iOS.XML" />
     <None Include="Assets\Scripts\Shaders\Standard_Double_sided.shader" />
+    <None Include="Assets\Scripts\Shaders\UITransparent.shader" />
     <None Include="Assets\Scripts\Shaders\glow_shader.shader" />
     <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\AmbientOcclusion.cginc" />
     <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\AmbientOcclusion.shader" />

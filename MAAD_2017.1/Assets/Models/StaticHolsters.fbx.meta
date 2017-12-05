@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: cf4400a303f2eec45bb5fca02a59f362
+timeCreated: 1512432977
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Clockfloor:polySurface1
+    100002: Cube
+    100004: CubeEdge
+    100006: CubeHolder
+    100008: HangingLight
+    100010: Hololensholster
+    100012: Holster
+    100014: Holster3
+    100016: Light1Set
+    100018: Light2
+    100020: Light2 1
+    100022: Light2Set
+    100024: Light3
+    100026: Light3 1
+    100028: pHelix10
+    100030: pHelix11
+    100032: pHelix12
+    100034: pHelix13
+    100036: pHelix14
+    100038: pHelix15
+    100040: pHelix4
+    100042: pHelix5
+    100044: pHelix6
+    100046: pHelix7
+    100048: pHelix8
+    100050: pHelix9
+    100052: pTorus1
+    100054: //RootNode
+    400000: Clockfloor:polySurface1
+    400002: Cube
+    400004: CubeEdge
+    400006: CubeHolder
+    400008: HangingLight
+    400010: Hololensholster
+    400012: Holster
+    400014: Holster3
+    400016: Light1Set
+    400018: Light2
+    400020: Light2 1
+    400022: Light2Set
+    400024: Light3
+    400026: Light3 1
+    400028: pHelix10
+    400030: pHelix11
+    400032: pHelix12
+    400034: pHelix13
+    400036: pHelix14
+    400038: pHelix15
+    400040: pHelix4
+    400042: pHelix5
+    400044: pHelix6
+    400046: pHelix7
+    400048: pHelix8
+    400050: pHelix9
+    400052: pTorus1
+    400054: //RootNode
+    2300000: Clockfloor:polySurface1
+    2300002: Cube
+    2300004: CubeEdge
+    2300006: HangingLight
+    2300008: Holster
+    2300010: Holster3
+    2300012: Light2
+    2300014: Light2 1
+    2300016: Light3
+    2300018: Light3 1
+    2300020: pHelix10
+    2300022: pHelix11
+    2300024: pHelix12
+    2300026: pHelix13
+    2300028: pHelix14
+    2300030: pHelix15
+    2300032: pHelix4
+    2300034: pHelix5
+    2300036: pHelix6
+    2300038: pHelix7
+    2300040: pHelix8
+    2300042: pHelix9
+    2300044: pTorus1
+    3300000: Clockfloor:polySurface1
+    3300002: Cube
+    3300004: CubeEdge
+    3300006: HangingLight
+    3300008: Holster
+    3300010: Holster3
+    3300012: Light2
+    3300014: Light2 1
+    3300016: Light3
+    3300018: Light3 1
+    3300020: pHelix10
+    3300022: pHelix11
+    3300024: pHelix12
+    3300026: pHelix13
+    3300028: pHelix14
+    3300030: pHelix15
+    3300032: pHelix4
+    3300034: pHelix5
+    3300036: pHelix6
+    3300038: pHelix7
+    3300040: pHelix8
+    3300042: pHelix9
+    3300044: pTorus1
+    4300000: HangingLight
+    4300002: Cube
+    4300004: CubeEdge
+    4300006: pHelix4
+    4300008: pHelix5
+    4300010: pHelix6
+    4300012: pHelix7
+    4300014: Holster
+    4300016: Holster3
+    4300018: Clockfloor:polySurface1
+    4300020: Light3
+    4300022: Light2
+    4300024: pHelix15
+    4300026: pHelix14
+    4300028: pHelix13
+    4300030: pHelix12
+    4300032: Light3
+    4300034: Light2
+    4300036: pHelix8
+    4300038: pHelix9
+    4300040: pHelix10
+    4300042: pHelix11
+    4300044: pTorus1
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

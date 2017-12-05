@@ -27,7 +27,8 @@ public class TransBetween : MonoBehaviour
     private float timer = 0;
     private float timerMax = 0;
 
-    private bool colStartCheck = false;
+    [HideInInspector]
+    public bool colStartCheck = false;
     private bool alphaCheck = false;
     private float alpha; 
 

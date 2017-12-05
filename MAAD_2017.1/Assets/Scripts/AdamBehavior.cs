@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
+using UnityEngine.Audio; 
 
 // Keeps track of Adam's State
 
@@ -30,11 +31,20 @@ public class AdamBehavior : MonoBehaviour
 {
     Animator animator;
     RubixManager rubix;
-    
+
+    AudioSource audioSource; 
+    public AudioClip eating;
+    public AudioClip surprise;
+    public AudioClip melt;
 
     public Renderer[] renderers;
 
 
+    public Animator[] clocks;
+    public AudioSource clockgear1;
+    public AudioSource clockgear2;
+
+    //public AudioSource freezetree;
 
     public AdamState state;
 
@@ -76,6 +86,9 @@ public class AdamBehavior : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rubix = GameObject.Find("Rubix").GetComponent<RubixManager>();
+        audioSource = GetComponent<AudioSource>(); 
+       
+        
 
         StartFirstDemo = 0;
         StartSecDemo = 0;
@@ -86,13 +99,19 @@ public class AdamBehavior : MonoBehaviour
         StartIdle = 0;
         StartWelcome = 0;
 
+        foreach (Animator clock in clocks) {
+            clock.enabled = false; 
+        }
 
-
+        
+        //AudioController.PlayAudioSource(this.gameObject, eating);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     public void SetState(AdamState newState) {
@@ -136,9 +155,11 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Eating:
                 animator.SetBool("Eating", false);
+                audioSource.Stop();
                 break; 
             case AdamState.Surprise:
                 animator.SetBool("Surprise", false);
+                audioSource.Stop();
                 break;
             case AdamState.Investigate:
                 animator.SetBool("Investigate", false);
@@ -148,6 +169,7 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", false);
+                audioSource.Stop();
                 break;
             case AdamState.FreakOut:
                 animator.SetBool("FreakOut", false);
@@ -208,10 +230,20 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Eating:
                 animator.SetBool("Eating", true);
+
+                audioSource.clip = eating;
+                audioSource.loop = true; 
+                audioSource.Play();
+
                 break;
             case AdamState.Surprise:
                 StartSurprise = Time.time;
                 animator.SetBool("Surprise", true);
+
+                audioSource.clip = surprise;
+                audioSource.loop = false; 
+                audioSource.Play();
+
                 break;
             case AdamState.Investigate:
                 StartInvest = Time.time; 
@@ -220,12 +252,28 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Welcome:
                 StartWelcome = Time.time; 
                 animator.SetBool("Welcome", true);
+
+                foreach (Animator clock in clocks)
+                {
+                    clock.enabled = true;
+
+                }
+                clockgear1.Play();
+                clockgear2.Play(); 
+
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", true);
+
+                audioSource.clip = melt;
+                audioSource.loop = false;
+                audioSource.Play();
+
                 break;
             case AdamState.FreakOut:
                 animator.SetBool("FreakOut", true);
+
+                //freezetree.Play();
                 break;
         }
 

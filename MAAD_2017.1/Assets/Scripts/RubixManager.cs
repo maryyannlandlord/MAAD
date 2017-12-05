@@ -25,6 +25,9 @@ public class RubixManager : MonoBehaviour {
     public TransBetween tracker1;
     public TransBetween tracker2;
     public TransBetween tracker3;
+    public Renderer[] trackerRender;
+
+
 
 
     public flowerBehavior[] flower;
@@ -76,6 +79,8 @@ public class RubixManager : MonoBehaviour {
         musicRenderer = musicSphere.GetComponent<Renderer>();
         musicRenderer.enabled = false;
         musicPlayer = musicSphere.GetComponent<VideoPlayer>();
+
+
 
     }
 
@@ -233,14 +238,24 @@ public class RubixManager : MonoBehaviour {
             {
                 Debug.Log("60 seconds!");
                 // pedistal glows more 
-                if (adamFade.Wait(adamFade.FadewaitTime)) adamFade.FadeOut();
+                if (adamFade.Wait(adamFade.FadewaitTime))
+                {
+                    foreach (Renderer render in trackerRender)
+                    {
+                        render.enabled = false; 
+                    }
+                    adamFade.FadeOut();
+                }
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
             {
                 Debug.Log("45 seconds!");
                 
                 adam.SetState(AdamState.Melting);
-                if (adamFade.Wait(adamFade.FossilwaitTime)) adamFade.Fossilize(); 
+                if (adamFade.Wait(adamFade.FossilwaitTime)) { adamFade.Fossilize();
+                   
+                }
+
                 // pedistal glows
             }
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 40 seconds
@@ -277,6 +292,7 @@ public class RubixManager : MonoBehaviour {
                     }
                         
                 }
+                
                 // pedestal glow (10s 50%)
             }
 
@@ -296,7 +312,7 @@ public class RubixManager : MonoBehaviour {
                     {
                       
                         Success(currentStage);
-                        currentStage = (RubixTargetState)((int)currentStage + 1); // currentStage -> SecTracker
+                        currentStage = (RubixTargetState)((int)currentStage + 1); 
                        
 
                     }
@@ -310,15 +326,7 @@ public class RubixManager : MonoBehaviour {
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1);
 
-                        tracker3.FadeOut();
-
-                        if (adamFade.Wait(2))
-                        {
-                            adamFade.FadeOutdur = 5.0f; 
-                            adamFade.FadeOut();
-                        } 
-
-                        
+                        // need ball to fade :\ but it only runs through once...
                     }
 
                 }
@@ -351,8 +359,20 @@ public class RubixManager : MonoBehaviour {
                 
                 
                 musicRenderer.enabled = true;
-                //musicPlayer.Play();
+                musicPlayer.Play();
                 AudioController.PlayAudioSource(musicSphere);
+
+                tracker3.FadeOut();
+
+                foreach (Renderer render in trackerRender)
+                {
+                    render.enabled = false;
+                }
+
+                //adamFade.colStartCheck = false; 
+                adamFade.FadeOutdur = 5.0f;
+                adamFade.FadeOut();
+
 
                 break;
             case RubixTargetState.End:
