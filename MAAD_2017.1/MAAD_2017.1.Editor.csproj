@@ -156,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_MK\MKGlowFree\Editor\MKGlowFreeEditor.cs" />
+    <Compile Include="Assets\AVProVideo\Scripts\Editor\DisplayUGUIEditor.cs" />
+    <Compile Include="Assets\AVProVideo\Scripts\Editor\MediaPlayerEditor.cs" />
+    <Compile Include="Assets\AVProVideo\Scripts\Editor\PostProcessBuild.cs" />
     <Compile Include="Assets\Editor\Vuforia\SampleOrientationSetter.cs" />
     <Compile Include="Assets\Packages\HoloToolkit\BuildAndDeploy\Editor\BuildDeployPortal.cs" />
     <Compile Include="Assets\Packages\HoloToolkit\BuildAndDeploy\Editor\BuildDeployPrefs.cs" />
@@ -214,6 +217,20 @@
     <Compile Include="Assets\Vuforia\Editor\Scripts\VuforiaConfigurationEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\AVProVideo\Demos\Materials\UI-Default-ExtraTexture.shader" />
+    <None Include="Assets\AVProVideo\Demos\Materials\UI-DefaultFont-ExtraTexture.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-Background-FullScreen.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-Background-FullScreenTransparent.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-IMGUI-Transparent.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-Lit-Diffuse.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-UI-Default-Stereo.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-UI-Default-Transparent.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-Unlit-Transparent.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-Unlit.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-VR-InsideSphere-AndroidOES.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-VR-InsideSphere-Transparent.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-VR-InsideSphere.shader" />
+    <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo.cginc" />
     <None Include="Assets\Materials\Materials\butts.txt" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\PlaneCut.cginc" />
     <None Include="Assets\Packages\HoloToolkit-Examples\Medical\Shaders\VolumeRenderShared.cginc" />

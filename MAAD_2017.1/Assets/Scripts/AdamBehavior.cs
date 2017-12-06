@@ -10,31 +10,30 @@ public enum AdamState
 {
     Hiding,
     Idle,
-    Happy,
-    Spinning,
-    Hop, 
+    Eating,
+    Surprise,
     Fly,
+    Investigate,
+    Welcome,
     FirstDemo, 
-    FirstHold, 
+    FirstHold,
+    Happy,
     SecDemo, 
-    SecHold, 
-    Eating, 
-    Surprise, 
-    Investigate, 
-    Welcome, 
-    Melting,
+    SecHold,
     FreakOut,
+    Melting,
     FadeOut,
-    FadeIn
+    FadeIn, 
+    Wave
 }
 
 
 public class AdamBehavior : MonoBehaviour
 {
-    Animator animator;
-    RubixManager rubix;
-
-    AudioSource audioSource; 
+    public Animator animator;
+    public AudioSource audioSource;
+    public AdamState state;
+   
     public AudioClip eating;
     public AudioClip surprise;
     public AudioClip melt;
@@ -47,8 +46,6 @@ public class AdamBehavior : MonoBehaviour
     public Animator[] clocks;
     public AudioSource clockgear1;
     public AudioSource clockgear2;
-
-    public AdamState state;
 
     [HideInInspector]
     public float StartFirstDemo;
@@ -65,17 +62,21 @@ public class AdamBehavior : MonoBehaviour
     [HideInInspector]
     public float StartIdle;
     [HideInInspector]
-    public float StartWelcome; 
+    public float StartWelcome;
+    [HideInInspector]
+    public float startFadeIn; 
     
     public Transform _adamAnchor; 
 
 
     public static Transform AdamAnchor;
     public Transform TargetPoint1;
-    public Transform TargetPoint2; 
+    public Transform TargetPoint2;
+    public Transform TargetPoint3; 
     [HideInInspector]
     public Transform flyTarget;
 
+    RubixManager rubix;
 
     private void Awake()
     {
@@ -131,14 +132,11 @@ public class AdamBehavior : MonoBehaviour
                     
                 }
                 break;
+            case AdamState.Idle:
+                animator.SetBool("Idle", false);
+                break;
             case AdamState.Happy:
                 animator.SetBool("Happy", false);
-                break;
-            case AdamState.Spinning:
-                animator.SetBool("Spinning", false);
-                break;
-            case AdamState.Hop:
-                animator.SetBool("Hop", false);
                 break;
             case AdamState.Fly:
                 animator.SetFloat("Fly", 0f);
@@ -150,8 +148,8 @@ public class AdamBehavior : MonoBehaviour
                 animator.SetBool("FirstHold", false);
                 break;
             case AdamState.SecDemo:
-                animator.SetBool("SecDemo", false);
-                break;
+               animator.SetBool("SecDemo", false);
+               break;
             case AdamState.SecHold:
                 animator.SetBool("SecHold", false);
                 break;
@@ -177,9 +175,13 @@ public class AdamBehavior : MonoBehaviour
                 animator.SetBool("FreakOut", false);
                 break;
             case AdamState.FadeOut:
+                animator.SetBool("Idle", false);
                 break;
             case AdamState.FadeIn:
                 animator.SetBool("Idle", false);
+                break;
+            case AdamState.Wave:
+                animator.SetBool("Wave", false);
                 break; 
         }
         switch(state)
@@ -198,12 +200,6 @@ public class AdamBehavior : MonoBehaviour
                 StartHappy = Time.time; 
                 animator.SetBool("Happy", true);
                 break;
-            case AdamState.Spinning:
-                animator.SetBool("Spinning", true);
-                break;
-            case AdamState.Hop:
-                animator.SetBool("Hop", true);
-                break;
             case AdamState.Fly:
                  animator.SetFloat("Fly", .1f);
                 if (rubix.currentStage == RubixTargetState.Intro)
@@ -214,15 +210,20 @@ public class AdamBehavior : MonoBehaviour
                 {
                     flyTarget = TargetPoint1;
                 }
-                else if (rubix.currentStage == RubixTargetState.FirstTracker) {
+                else if (rubix.currentStage == RubixTargetState.FirstTracker)
+                {
 
                     flyTarget = TargetPoint2;
                 }
+                else if (rubix.currentStage == RubixTargetState.End)
+                {
+                    flyTarget = TargetPoint3; 
+                }
                  break;
             case AdamState.FirstDemo:
-                StartFirstDemo = Time.time;
-                animator.SetBool("FirstDemo", true);
-                break;
+               StartFirstDemo = Time.time;
+               animator.SetBool("FirstDemo", true);
+               break;
             case AdamState.FirstHold:
                 animator.SetBool("FirstHold", true);
                 break;
@@ -236,7 +237,6 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Eating:
                 animator.SetBool("Eating", true);
-
                 audioSource.clip = eating;
                 audioSource.loop = true; 
                 audioSource.Play();
@@ -284,11 +284,15 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.FadeOut:
 
-
+                animator.SetBool("Idle", true);
 
                 break;
             case AdamState.FadeIn:
                 animator.SetBool("Idle", true);
+                startFadeIn = Time.time; 
+                break;
+            case AdamState.Wave:
+                animator.SetBool("Wave", true);
                 break; 
         }
 

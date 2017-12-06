@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using Vuforia;
 using UnityEngine.Video;
+using RenderHeads.Media.AVProVideo; 
+
 
 // Keeps track of current Rubix/World state, next tracker to look for, and determines Adam's state
 
@@ -16,79 +18,94 @@ public enum RubixTargetState
     End = 4
 }
 
-public class RubixManager : MonoBehaviour {
 
-    AdamBehavior adam;
-    public TransBetween[] faders;
-    public TransBetween adamFade;
-    public TransBetween tracker1;
-    public TransBetween tracker2;
-    public TransBetween tracker3;
-    public Renderer[] trackerRender;
+    public class RubixManager : MonoBehaviour
+    {
 
-    public flowerBehavior[] flower;
+        AdamBehavior adam;
+        public Transform adamHead;
+        public Transform welcomeTarget;
+        public TransBetween[] faders;
+        public TransBetween adamFade;
+        public TransBetween tracker1;
+        public TransBetween tracker2;
+        public TransBetween tracker3;
+        public Renderer[] trackerRender;
 
-    public GameObject fossilTree;
+        public flowerBehavior[] flower;
+        public Animator flowerPath; 
+    
 
-    private bool fossilTreeTriggered = false;
-    private bool FadeUpdate = false; 
+        public GameObject fossilTree;
 
-    public Action<RubixTargetState> Success;
-    public Action<RubixTargetState> Fail;
-
-    public RubixTargetState currentStage;
-    public DefaultTrackableEventHandler[] trackers;
-
-    public float FirstDemoDur;
-    public float SecDemoDur;
-    public float SurpriseDur;
-    public float HappyDur;
-    public float IdleDur;
-    public float InvestDur;
-
-
-    public float[] MeltingTimeTriggers = new float[] { 20, 30, 45, 50 };
-    public float flyTargetSpeed = .01f;
-    public float FlyToPlayerSpeed = .3f;
-    public float rotSpeed = 0.02f;
-
-
-    public GameObject musicSphere;
-    private Renderer musicRenderer;
-    private VideoPlayer musicPlayer;
+        private bool fossilTreeTriggered = false;
+        private bool FadeUpdate = false;
 
 
 
+        public Action<RubixTargetState> Success;
+        public Action<RubixTargetState> Fail;
 
-    private Quaternion newLookRot;
-    public Transform playerTransform;
-    Transform targetPlayerLOS;
+        public RubixTargetState currentStage;
+        public DefaultTrackableEventHandler[] trackers;
 
-    // Use this for initialization
-    void Start() {
-        currentStage = RubixTargetState.Intro;
+        public float FirstDemoDur;
+        public float SecDemoDur;
+        public float SurpriseDur;
+        public float HappyDur;
+        public float IdleDur;
+        public float InvestDur;
+        public float FadeInDur;
+        public float videoDur;
 
-        Success += TrackerSuccess;
-        Fail += TrackerFail;
+        private float StartVideo = 0;
 
-        adam = GameObject.Find("Adam").GetComponent<AdamBehavior>(); // Find Adam in the scene
-        adam.SetState(AdamState.Eating); // Set Adam initial state 
-
-        musicRenderer = musicSphere.GetComponent<Renderer>();
-        musicRenderer.enabled = false;
-        musicPlayer = musicSphere.GetComponent<VideoPlayer>();
+        public float[] MeltingTimeTriggers = new float[] { 20, 30, 45, 50 };
+        public float flyTargetSpeed = .01f;
+        public float FlyToPlayerSpeed = .3f;
+        public float rotSpeed = 0.02f;
 
 
+        public GameObject musicSphere;
+        private Renderer musicRenderer;
+        public MediaPlayer musicPlayer;
 
-    }
 
-    // Update is called once per frame
-    void Update() {
-        WorldState();
-        TrackerStatus();
-    }
+        private Quaternion newLookRot;
+        private Quaternion headLookRot;
+        public Transform playerTransform;
+        Transform targetPlayerLOS;
 
-    public void WorldState() {
+        // Use this for initialization
+        void Start()
+        {
+            currentStage = RubixTargetState.Intro;
+
+            Success += TrackerSuccess;
+            Fail += TrackerFail;
+
+            adam = GameObject.Find("Adam").GetComponent<AdamBehavior>();
+            // Find Adam in the scene
+            //
+
+            adam.SetState(AdamState.Eating); // Set Adam initial state 
+
+            musicRenderer = musicSphere.GetComponentInChildren<Renderer>();
+            musicRenderer.enabled = false;
+
+            flowerPath.enabled = false; 
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            WorldState();
+            TrackerStatus();
+        }
+
+        public void WorldState()
+        {
 
         if (adam.state == AdamState.Eating)
         {
@@ -117,23 +134,38 @@ public class RubixManager : MonoBehaviour {
 
             adam.transform.position = Vector3.Lerp(adam.transform.position, adam.flyTarget.position, FlyToPlayerSpeed);
 
-            if (currentStage == RubixTargetState.Intro || currentStage == RubixTargetState.Welcome)
+            if ((currentStage == RubixTargetState.Intro) || (currentStage == RubixTargetState.End))
             {
                 newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
+            }
+            else if (currentStage == RubixTargetState.Welcome)
+            {
+                newLookRot = Quaternion.LookRotation(welcomeTarget.position - adam.transform.position);
             }
             else
             {
                 newLookRot = Quaternion.LookRotation(adam.flyTarget.position - adam.transform.position);
             }
 
+
             adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
 
             if (Vector3.Distance(adam.transform.position, adam.flyTarget.position) < .2f)
             {
-                newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
+                //newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
                 adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
 
-                if (currentStage == RubixTargetState.Welcome) { adam.SetState(AdamState.Welcome); }
+                if (currentStage == RubixTargetState.Welcome)
+                {
+                    //adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, welcomeTargetQuat, rotSpeed);
+                    adam.SetState(AdamState.Welcome);
+                }
+                else if (currentStage == RubixTargetState.End)
+                {
+                    adam.SetState(AdamState.FadeIn);
+
+
+                }
                 else { adam.SetState(AdamState.Idle); }
 
 
@@ -151,10 +183,12 @@ public class RubixManager : MonoBehaviour {
             {
                 Debug.Log("Giving a pause");
                 adam.transform.position = Vector3.Lerp(adam.transform.position, adam.flyTarget.position, flyTargetSpeed);
+
                 if (Time.time >= adam.StartIdle + IdleDur)
                 {
                     Success(currentStage);
-                    currentStage = (RubixTargetState)((int)currentStage + 1);
+                    currentStage = (RubixTargetState)((int)currentStage + 1); //// current Stage -> Welcome
+
 
 
                 }
@@ -184,7 +218,7 @@ public class RubixManager : MonoBehaviour {
         else if (adam.state == AdamState.Welcome)
         {
 
-            if (((Time.time - adam.StartWelcome) / 4.667) >= 1)
+            if (((Time.time - adam.StartWelcome) / 25.792) >= 1)
             {
 
                 Debug.Log("How much time has passed:" + (Time.time - adam.StartWelcome));
@@ -236,33 +270,73 @@ public class RubixManager : MonoBehaviour {
         }
         else if (adam.state == AdamState.FadeOut)
         {
-            adamFade.updateColStart(); 
-            adamFade.FadeOutdur = 3.0f; 
-            adamFade.FadeOut();
-            if (FadeUpdate == false) {
 
-                foreach (TransBetween f in faders) {
-                    f.updateColStart();  
-                    f.FadeOutdur = 3.0f; 
+
+            Debug.Log("fade on success");
+            if (FadeUpdate == false)
+            {
+
+                foreach (TransBetween f in faders)
+                {
+                    f.updateColStart();
+                    f.FadeOutdur = 3.0f;
                 }
-                FadeUpdate = true; 
+                FadeUpdate = true;
+                adamFade.updateColStart();
+                adamFade.FadeOutdur = 3.0f;
             }
+
+
+            adamFade.FadeOut();
+            Debug.Log("adam fade time: " + adamFade.FadeOutdur);
+
+            if (Time.time >= videoDur + StartVideo)
+            {
+                adam.SetState(AdamState.Fly);
+                musicRenderer.enabled = false; 
+            }
+
 
             foreach (TransBetween f in faders)
             {
                 if (f.Wait(f.FadewaitTime)) // fossilize after waiting few seconds 
                 {
-                    
+
                     f.FadeOut();
+                    Debug.Log(f + " fade time: " + f.FadeOutdur);
 
                 }
 
             }
-            Debug.Log("supposedly fading");
-            //doens't work :C
+        }
+        else if (adam.state == AdamState.FadeIn) {
+
+            newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
+            adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
+
+            adamFade.FadeIn();
+
+            if (Time.time >= adam.startFadeIn + FadeInDur) {
+
+                Success(currentStage); //success Ending
+
+            }
+
+
+        }
+        else if (adam.state == AdamState.Wave)
+        {
+            newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
+            adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
+
+            // fade after certain time ?
+
         }
         else if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.SecHold) || (adam.state == AdamState.FreakOut) || (adam.state == AdamState.Melting)))
         {
+            newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
+            adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
+
             if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[3]) // 60 seconds
             {
                 Debug.Log("60 seconds!");
@@ -274,39 +348,43 @@ public class RubixManager : MonoBehaviour {
                         render.enabled = false;
                     }
                     adamFade.FadeOut();
+                    Debug.Log("adam fade time: " + adamFade.FadeOutdur);
                 }
             }
-            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
+            if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
             {
                 Debug.Log("45 seconds!");
 
                 adam.SetState(AdamState.Melting);
+
                 if (adamFade.Wait(adamFade.FossilwaitTime))
                 {
                     adamFade.Fossilize();
+                    Debug.Log("adam fossil time: " + adamFade.Fossildur);
 
                 }
 
                 // pedistal glows
             }
-            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 40 seconds
+            if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[1]) // 40 seconds
             {
                 Debug.Log("40 seconds!");
                 tracker3.FadeIn();
 
                 foreach (TransBetween f in faders)
                 {
-                    if (f.Wait(f.FadewaitTime)) 
+                    if (f.Wait(f.FadewaitTime))
                     {
 
                         f.FadeOut();
 
                     }
+                    Debug.Log(f + " fade time: " + f.FadeOutdur);
 
                 }
 
             }
-            else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[0]) // 30 seconds
+            if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[0]) // 30 seconds
             {
                 Debug.Log("30 seconds!");
 
@@ -316,8 +394,7 @@ public class RubixManager : MonoBehaviour {
                     fossilTreeTriggered = true;
 
                 }
-
-                adam.SetState(AdamState.FreakOut);
+                if (adam.state != AdamState.Melting) adam.SetState(AdamState.FreakOut);
                 tracker2.FadeOut();
 
                 foreach (TransBetween f in faders)
@@ -326,126 +403,147 @@ public class RubixManager : MonoBehaviour {
                     {
                         f.Fossilize();
                     }
-
+                    Debug.Log(f + " fossil time: " + f.Fossildur);
                 }
+
 
 
                 // pedestal glow (10s 50%)
             }
 
         }
-    }
+        }
 
-    public void TrackerStatus() {
-
-        foreach (DefaultTrackableEventHandler tracker in trackers)
+        public void TrackerStatus()
         {
-            if (tracker.found) {
 
-                
-                //MAAD_FirstTracker
-                if (tracker.mTrackableBehaviour.TrackableName == "MAAD_FirstTracker") {
-                    if (currentStage == RubixTargetState.FirstTracker && (adam.state == AdamState.FirstHold))
+            foreach (DefaultTrackableEventHandler tracker in trackers)
+            {
+                if (tracker.found)
+                {
+                Debug.Log("tracker Found");
+
+                    //MAAD_FirstTracker
+                    if (tracker.mTrackableBehaviour.TrackableName == "MAAD_FirstTracker")
                     {
-                      
-                        Success(currentStage);
-                        currentStage = (RubixTargetState)((int)currentStage + 1); 
-                       
+                        if (currentStage == RubixTargetState.FirstTracker && ((adam.state == AdamState.FirstHold) || (adam.state == AdamState.FirstDemo)))
+                        {
+
+                            Success(currentStage);
+                            currentStage = (RubixTargetState)((int)currentStage + 1); // current Stage -> Second Tracker 
+
+
+                        }
+                    }
+                    //MAAD_ThirdTracker_v1
+                    else if (tracker.mTrackableBehaviour.TrackableName == "MAAD_ThirdTracker_v1")
+                    {
+
+
+                        if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.FreakOut) || (adam.state == AdamState.Melting)))
+                        {
+
+                            Success(currentStage);
+                            currentStage = (RubixTargetState)((int)currentStage + 1); // current Stage -> End
+
+                            adam.SetState(AdamState.FadeOut);
+                        }
 
                     }
-                }
-                //MAAD_ThirdTracker_v1
-                else if (tracker.mTrackableBehaviour.TrackableName == "MAAD_ThirdTracker_v1") {
-                    
-
-                    if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.FreakOut ) || (adam.state == AdamState.Melting))) {
-                        
-                        Success(currentStage);
-                        currentStage = (RubixTargetState)((int)currentStage + 1);
-                        adam.SetState(AdamState.FadeOut);
-                    }
 
                 }
-
             }
         }
-    }
+
+        /*
+        public void turnHeadAt(bool turn) {
+            if (turn)
+            {
+                headLookRot = Quaternion.LookRotation(adamHead.position - adam.transform.position);
+                headLookRot.rotation = Quaternion.Lerp(adam.transform.rotation, headLookRot, 1.0f);
+            }
+            else {
+                headLookRot = Quaternion.LookRotation(adamHead.position - adam.transform.position);
+                headLookRot.rotation = Quaternion.Lerp(adam.transform.rotation, headLookRot, 1.0f);
+            }
+        }*/
 
 
 
-    public void TrackerSuccess(RubixTargetState targetStage) {
-        // Tracker created successfully
-
-        switch (targetStage)
+        public void TrackerSuccess(RubixTargetState targetStage)
         {
-            case RubixTargetState.Intro:
-                adam.SetState(AdamState.Investigate);
-                break;
-            case RubixTargetState.Welcome:
-                break;
-            case RubixTargetState.FirstTracker:
-                adam.SetState(AdamState.Happy);
-                foreach (flowerBehavior plant in flower)
-                {
-                    plant.SetState(FlowerState.Bloom);
-                }
-                break;
-            case RubixTargetState.SecTracker:
-                Debug.Log("Second Success!");
-                
-                
-                musicRenderer.enabled = true;
-                musicPlayer.Play();
-                AudioController.PlayAudioSource(musicSphere);
+            // Tracker created successfully
 
-                tracker3.FadeOut();
-
-                foreach (Renderer render in trackerRender)
-                {
-                    render.enabled = false;
-                }
-
-                //adamFade.colStartCheck = false; 
-                adamFade.FadeOutdur = 5.0f;
-                adamFade.FadeOut();
+            switch (targetStage)
+            {
+                case RubixTargetState.Intro:
+                    adam.SetState(AdamState.Investigate);
+                    break;
+                case RubixTargetState.Welcome:
+                    break;
+                case RubixTargetState.FirstTracker:
+                    adam.SetState(AdamState.Happy);
+                    foreach (flowerBehavior plant in flower)
+                    {
+                        plant.SetState(FlowerState.Bloom);
+                    }
+                    break;
+                case RubixTargetState.SecTracker:
+                    Debug.Log("Second Success!");
 
 
-                break;
-            case RubixTargetState.End:
-                //adam.SetState(AdamState.Rebirth); 
-                //trigger flowers
+                    musicRenderer.enabled = true;
+                    musicPlayer.Play();
+                    StartVideo = Time.time; 
 
-                break;
+                    tracker3.FadeOut();
+
+                    foreach (Renderer render in trackerRender)
+                    {
+                        render.enabled = false;
+                    }
+
+                    //adamFade.colStartCheck = false; 
+                    adamFade.FadeOutdur = 5.0f;
+                    adamFade.FadeOut();
+
+                    break;
+                case RubixTargetState.End:
+                    adam.SetState(AdamState.Wave); 
+                    flowerPath.enabled = true; 
+
+                    break;
+            }
         }
-    }
 
-    public void TrackerFail(RubixTargetState targetStage)
-    {
-        //AudioController.PlayAudioSource(kamidanaObject, failClips[Random.Range(0, failClips.Length - 1)]);
-        switch (targetStage)
+        public void TrackerFail(RubixTargetState targetStage)
         {
-            case RubixTargetState.Intro:
-                break;
-            case RubixTargetState.Welcome:
-                break;
-            case RubixTargetState.FirstTracker:
-                break;
-            case RubixTargetState.SecTracker:
-                break;
-            case RubixTargetState.End:
-                break;
+            //AudioController.PlayAudioSource(kamidanaObject, failClips[Random.Range(0, failClips.Length - 1)]);
+            switch (targetStage)
+            {
+                case RubixTargetState.Intro:
+                    break;
+                case RubixTargetState.Welcome:
+                    break;
+                case RubixTargetState.FirstTracker:
+                    break;
+                case RubixTargetState.SecTracker:
+                    break;
+                case RubixTargetState.End:
+                    break;
+            }
         }
-    }
 
 
 
-    public void TriggerSuccess()
-    {
-        if (Success != null) Success(currentStage);
-        currentStage = (RubixTargetState)((int)currentStage + 1);
-        Debug.Log("Rubix State:" + currentStage);
-    }
+        public void TriggerSuccess()
+        {
+            if (Success != null) Success(currentStage);
+            currentStage = (RubixTargetState)((int)currentStage + 1);
+            Debug.Log("Rubix State:" + currentStage);
+        }
 
+    
 
 } 
 
