@@ -32,6 +32,9 @@ public class TransBetween : MonoBehaviour
     private bool alphaCheck = false;
     private float alpha; 
 
+
+    private bool fadechanged = false; 
+
     // Use this for initialization
     void Start()
     {
@@ -51,11 +54,18 @@ public class TransBetween : MonoBehaviour
             Fossilize();
             Debug.Log("time: " + Time.time);
         }
-        else if (Time.time < 4)
-        { FadeOut(); }
         else if (Time.time < 7)
+        { FadeOut(); }
+        else if (Time.time < 9)
         {
-            FadeIn(); 
+            if (!fadechanged) {
+                FadeOutdur = 2.0f;
+                updateColStart(); 
+                Debug.Log("faster!");
+                fadechanged = true; 
+            }
+            
+            FadeOut(); 
         }*/
 
         ////////////////////NOTE/////////////////////

@@ -23,7 +23,9 @@ public enum AdamState
     Investigate, 
     Welcome, 
     Melting,
-    FreakOut
+    FreakOut,
+    FadeOut,
+    FadeIn
 }
 
 
@@ -37,14 +39,14 @@ public class AdamBehavior : MonoBehaviour
     public AudioClip surprise;
     public AudioClip melt;
 
+    private bool meltTriggered = false; 
+
     public Renderer[] renderers;
 
 
     public Animator[] clocks;
     public AudioSource clockgear1;
     public AudioSource clockgear2;
-
-    //public AudioSource freezetree;
 
     public AdamState state;
 
@@ -174,6 +176,11 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.FreakOut:
                 animator.SetBool("FreakOut", false);
                 break;
+            case AdamState.FadeOut:
+                break;
+            case AdamState.FadeIn:
+                animator.SetBool("Idle", false);
+                break; 
         }
         switch(state)
         {
@@ -211,7 +218,6 @@ public class AdamBehavior : MonoBehaviour
 
                     flyTarget = TargetPoint2;
                 }
-                 //flyTarget = (rubix.currentStage == RubixTargetState.Welcome) ? AdamAnchor : TargetPoint2;
                  break;
             case AdamState.FirstDemo:
                 StartFirstDemo = Time.time;
@@ -265,16 +271,25 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Melting:
                 animator.SetBool("Melting", true);
 
-                audioSource.clip = melt;
-                audioSource.loop = false;
-                audioSource.Play();
+                if (!meltTriggered) {
+                    audioSource.clip = melt;
+                    audioSource.loop = false;
+                    audioSource.Play();
+                    meltTriggered = true; 
+                }
 
                 break;
             case AdamState.FreakOut:
-                animator.SetBool("FreakOut", true);
-
-                //freezetree.Play();
+                animator.SetBool("FreakOut", true);   
                 break;
+            case AdamState.FadeOut:
+
+
+
+                break;
+            case AdamState.FadeIn:
+                animator.SetBool("Idle", true);
+                break; 
         }
 
     }

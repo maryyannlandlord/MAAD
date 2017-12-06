@@ -6,7 +6,6 @@ using Vuforia;
 using UnityEngine.Video;
 
 // Keeps track of current Rubix/World state, next tracker to look for, and determines Adam's state
-// Triggers things to change in the world 
 
 public enum RubixTargetState
 {
@@ -27,11 +26,12 @@ public class RubixManager : MonoBehaviour {
     public TransBetween tracker3;
     public Renderer[] trackerRender;
 
-
-
-
     public flowerBehavior[] flower;
-    Transform targetPlayerLOS;
+
+    public GameObject fossilTree;
+
+    private bool fossilTreeTriggered = false;
+    private bool FadeUpdate = false; 
 
     public Action<RubixTargetState> Success;
     public Action<RubixTargetState> Fail;
@@ -45,7 +45,6 @@ public class RubixManager : MonoBehaviour {
     public float HappyDur;
     public float IdleDur;
     public float InvestDur;
-
 
 
     public float[] MeltingTimeTriggers = new float[] { 20, 30, 45, 50 };
@@ -62,9 +61,8 @@ public class RubixManager : MonoBehaviour {
 
 
     private Quaternion newLookRot;
-
     public Transform playerTransform;
-
+    Transform targetPlayerLOS;
 
     // Use this for initialization
     void Start() {
@@ -119,10 +117,12 @@ public class RubixManager : MonoBehaviour {
 
             adam.transform.position = Vector3.Lerp(adam.transform.position, adam.flyTarget.position, FlyToPlayerSpeed);
 
-            if (currentStage == RubixTargetState.Intro || currentStage == RubixTargetState.Welcome) {
+            if (currentStage == RubixTargetState.Intro || currentStage == RubixTargetState.Welcome)
+            {
                 newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
             }
-            else {
+            else
+            {
                 newLookRot = Quaternion.LookRotation(adam.flyTarget.position - adam.transform.position);
             }
 
@@ -159,7 +159,7 @@ public class RubixManager : MonoBehaviour {
 
                 }
             }
-            else if(currentStage == RubixTargetState.FirstTracker)
+            else if (currentStage == RubixTargetState.FirstTracker)
             {
                 Debug.Log("Waiting for Player");
                 if (Time.time >= adam.StartIdle + IdleDur)
@@ -181,9 +181,11 @@ public class RubixManager : MonoBehaviour {
             }
 
         }
-        else if (adam.state == AdamState.Welcome) {
+        else if (adam.state == AdamState.Welcome)
+        {
 
-            if (((Time.time - adam.StartWelcome) / 4.667) >= 1) {
+            if (((Time.time - adam.StartWelcome) / 4.667) >= 1)
+            {
 
                 Debug.Log("How much time has passed:" + (Time.time - adam.StartWelcome));
 
@@ -227,10 +229,37 @@ public class RubixManager : MonoBehaviour {
 
                 if (currentStage == RubixTargetState.SecTracker)
                 {
-                    
+
                     adam.SetState(AdamState.SecDemo);
                 }
             }
+        }
+        else if (adam.state == AdamState.FadeOut)
+        {
+            adamFade.updateColStart(); 
+            adamFade.FadeOutdur = 3.0f; 
+            adamFade.FadeOut();
+            if (FadeUpdate == false) {
+
+                foreach (TransBetween f in faders) {
+                    f.updateColStart();  
+                    f.FadeOutdur = 3.0f; 
+                }
+                FadeUpdate = true; 
+            }
+
+            foreach (TransBetween f in faders)
+            {
+                if (f.Wait(f.FadewaitTime)) // fossilize after waiting few seconds 
+                {
+                    
+                    f.FadeOut();
+
+                }
+
+            }
+            Debug.Log("supposedly fading");
+            //doens't work :C
         }
         else if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.SecHold) || (adam.state == AdamState.FreakOut) || (adam.state == AdamState.Melting)))
         {
@@ -242,7 +271,7 @@ public class RubixManager : MonoBehaviour {
                 {
                     foreach (Renderer render in trackerRender)
                     {
-                        render.enabled = false; 
+                        render.enabled = false;
                     }
                     adamFade.FadeOut();
                 }
@@ -250,10 +279,12 @@ public class RubixManager : MonoBehaviour {
             else if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
             {
                 Debug.Log("45 seconds!");
-                
+
                 adam.SetState(AdamState.Melting);
-                if (adamFade.Wait(adamFade.FossilwaitTime)) { adamFade.Fossilize();
-                   
+                if (adamFade.Wait(adamFade.FossilwaitTime))
+                {
+                    adamFade.Fossilize();
+
                 }
 
                 // pedistal glows
@@ -265,11 +296,11 @@ public class RubixManager : MonoBehaviour {
 
                 foreach (TransBetween f in faders)
                 {
-                    if (f.Wait(f.FadewaitTime)) // fossilize after waiting few seconds 
+                    if (f.Wait(f.FadewaitTime)) 
                     {
 
                         f.FadeOut();
-                        
+
                     }
 
                 }
@@ -279,20 +310,26 @@ public class RubixManager : MonoBehaviour {
             {
                 Debug.Log("30 seconds!");
 
+                if (fossilTreeTriggered == false)
+                {
+                    AudioController.PlayAudioSource(fossilTree);
+                    fossilTreeTriggered = true;
+
+                }
+
                 adam.SetState(AdamState.FreakOut);
                 tracker2.FadeOut();
 
                 foreach (TransBetween f in faders)
                 {
-                    Debug.Log("entered fossil forloop");
                     if (f.Wait(f.FossilwaitTime)) // fossilize after waiting few seconds 
                     {
-                        Debug.Log("fossilize!");
                         f.Fossilize();
                     }
-                        
+
                 }
-                
+
+
                 // pedestal glow (10s 50%)
             }
 
@@ -307,7 +344,7 @@ public class RubixManager : MonoBehaviour {
 
                 
                 //MAAD_FirstTracker
-                if (tracker.mTrackableBehaviour.TrackableName == "Astronaut") {
+                if (tracker.mTrackableBehaviour.TrackableName == "MAAD_FirstTracker") {
                     if (currentStage == RubixTargetState.FirstTracker && (adam.state == AdamState.FirstHold))
                     {
                       
@@ -318,15 +355,14 @@ public class RubixManager : MonoBehaviour {
                     }
                 }
                 //MAAD_ThirdTracker_v1
-                else if (tracker.mTrackableBehaviour.TrackableName == "Oxygen") {
+                else if (tracker.mTrackableBehaviour.TrackableName == "MAAD_ThirdTracker_v1") {
                     
 
                     if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.FreakOut ) || (adam.state == AdamState.Melting))) {
                         
                         Success(currentStage);
                         currentStage = (RubixTargetState)((int)currentStage + 1);
-
-                        // need ball to fade :\ but it only runs through once...
+                        adam.SetState(AdamState.FadeOut);
                     }
 
                 }
