@@ -66,9 +66,11 @@ public enum RubixTargetState
         public float rotSpeed = 0.02f;
 
 
-        public GameObject musicSphere;
-        private Renderer musicRenderer;
-        public MediaPlayer musicPlayer;
+        //public GameObject musicSphere;
+        //private Renderer musicRenderer;
+        //public MediaPlayer musicPlayer;
+
+        public AudioSource visualMusicSound; 
 
 
         private Quaternion newLookRot;
@@ -90,8 +92,8 @@ public enum RubixTargetState
 
             adam.SetState(AdamState.Eating); // Set Adam initial state 
 
-            musicRenderer = musicSphere.GetComponentInChildren<Renderer>();
-            musicRenderer.enabled = false;
+            //musicRenderer = musicSphere.GetComponentInChildren<Renderer>();
+            //musicRenderer.enabled = false;
 
             flowerPath.enabled = false; 
 
@@ -293,7 +295,7 @@ public enum RubixTargetState
             if (Time.time >= videoDur + StartVideo)
             {
                 adam.SetState(AdamState.Fly);
-                musicRenderer.enabled = false; 
+                //musicRenderer.enabled = false; 
             }
 
 
@@ -492,9 +494,10 @@ public enum RubixTargetState
                     Debug.Log("Second Success!");
 
 
-                    musicRenderer.enabled = true;
-                    musicPlayer.Play();
-                    StartVideo = Time.time; 
+                    //musicRenderer.enabled = true;
+                    //musicPlayer.Play();
+                    StartVideo = Time.time;
+                    visualMusicSound.Play(); 
 
                     tracker3.FadeOut();
 

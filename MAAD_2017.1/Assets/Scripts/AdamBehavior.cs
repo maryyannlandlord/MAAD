@@ -37,6 +37,14 @@ public class AdamBehavior : MonoBehaviour
     public AudioClip eating;
     public AudioClip surprise;
     public AudioClip melt;
+    public AudioClip investigate;
+    public AudioClip fly;
+    public AudioClip happy;
+    public AudioClip wave;
+    public AudioClip idle;
+    public AudioClip tracker1;
+    public AudioClip tracker2; 
+    
 
     private bool meltTriggered = false; 
 
@@ -134,22 +142,27 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Idle:
                 animator.SetBool("Idle", false);
+                audioSource.Stop();
                 break;
             case AdamState.Happy:
                 animator.SetBool("Happy", false);
+                audioSource.Stop();
                 break;
             case AdamState.Fly:
                 animator.SetFloat("Fly", 0f);
+                audioSource.Stop();
                 break; 
             case AdamState.FirstDemo:
                 animator.SetBool("FirstDemo", false);
+                audioSource.Stop();
                 break;
             case AdamState.FirstHold:
                 animator.SetBool("FirstHold", false);
                 break;
             case AdamState.SecDemo:
                animator.SetBool("SecDemo", false);
-               break;
+                audioSource.Stop();
+                break;
             case AdamState.SecHold:
                 animator.SetBool("SecHold", false);
                 break;
@@ -163,9 +176,11 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Investigate:
                 animator.SetBool("Investigate", false);
+                audioSource.Stop();
                 break;
             case AdamState.Welcome:
                 animator.SetBool("Welcome", false);
+                audioSource.Stop();
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", false);
@@ -182,6 +197,7 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Wave:
                 animator.SetBool("Wave", false);
+                audioSource.Stop();
                 break; 
         }
         switch(state)
@@ -195,10 +211,22 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Idle:
                 StartIdle = Time.time;
                 animator.SetBool("Idle", true);
+
+                audioSource.clip = idle;
+                audioSource.loop = true;
+                audioSource.Play();
+
+
+
                 break;
             case AdamState.Happy:
                 StartHappy = Time.time; 
                 animator.SetBool("Happy", true);
+
+                audioSource.clip = happy;
+                audioSource.loop = true;
+                audioSource.Play();
+
                 break;
             case AdamState.Fly:
                  animator.SetFloat("Fly", .1f);
@@ -219,17 +247,34 @@ public class AdamBehavior : MonoBehaviour
                 {
                     flyTarget = TargetPoint3; 
                 }
-                 break;
+
+                audioSource.clip = fly;
+                audioSource.loop = true;
+                audioSource.Play();
+
+
+                break;
             case AdamState.FirstDemo:
                StartFirstDemo = Time.time;
                animator.SetBool("FirstDemo", true);
-               break;
+
+                audioSource.clip = tracker1;
+                audioSource.loop = true;
+                audioSource.Play();
+
+
+                break;
             case AdamState.FirstHold:
                 animator.SetBool("FirstHold", true);
                 break;
             case AdamState.SecDemo:
                 StartSecDemo = Time.time;
                 animator.SetBool("SecDemo", true);
+
+                audioSource.clip = tracker2;
+                audioSource.loop = true;
+                audioSource.Play();
+
                 break;
             case AdamState.SecHold:
                 StartSecHold = Time.time;
@@ -254,6 +299,11 @@ public class AdamBehavior : MonoBehaviour
             case AdamState.Investigate:
                 StartInvest = Time.time; 
                 animator.SetBool("Investigate", true);
+
+                audioSource.clip = investigate;
+                audioSource.loop = true;
+                audioSource.Play();
+
                 break;
             case AdamState.Welcome:
                 StartWelcome = Time.time; 
@@ -270,13 +320,11 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", true);
+         
+                 audioSource.clip = melt;
+                 audioSource.loop = true;
+                 audioSource.Play();
 
-                if (!meltTriggered) {
-                    audioSource.clip = melt;
-                    audioSource.loop = false;
-                    audioSource.Play();
-                    meltTriggered = true; 
-                }
 
                 break;
             case AdamState.FreakOut:
@@ -293,6 +341,13 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.Wave:
                 animator.SetBool("Wave", true);
+
+                audioSource.clip = wave;
+                audioSource.loop = true;
+                audioSource.Play();
+
+
+
                 break; 
         }
 

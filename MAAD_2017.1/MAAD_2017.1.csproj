@@ -534,6 +534,7 @@
     <Compile Include="Assets\Packages\HoloToolkit-Tests\Utilities\Scripts\TextToSpeechTest.cs" />
     <Compile Include="Assets\Scripts\AdamBehavior.cs" />
     <Compile Include="Assets\Scripts\AdamTest.cs" />
+    <Compile Include="Assets\Scripts\Ambience.cs" />
     <Compile Include="Assets\Scripts\AudioController.cs" />
     <Compile Include="Assets\Scripts\ControlCam.cs" />
     <Compile Include="Assets\Scripts\Fade.cs" />

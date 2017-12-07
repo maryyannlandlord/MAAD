@@ -31,6 +31,7 @@ ce95359056a9e6b4eb0e058f9a3b2945 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 48b18550d8a7b4434dea0515e7de86df Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.Tests.PopupMenu
 0cfa2924186981252e5b629046868266 Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.Tests.DisplaySpeechKeywords
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Vuforia.TurnOffBehaviour
+cefc53cb7c68e34300e0f2491e7ff966 Assembly-CSharp.dll:.musicTemp
 a7e7543e2a0b972c935fd5bb8bfd1eca Assembly-CSharp.dll:HoloToolkit.Unity.SpatialMapping.RemoveSurfaceVertices
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:HoloToolkit.Unity.SpatialUnderstandingSourceMesh
 b526ecf4e3794d9827ce0bbc0f84fab7 Assembly-CSharp.dll:HoloToolkit.UI.Keyboard.SymbolKeyboard
@@ -239,6 +240,7 @@ bf9017dae943915e2d35b5cf6dfaf6b1 Assembly-CSharp.dll:.flowerBehavior
 2ea898cae0532d4f8835c3c988641d70 Assembly-CSharp.dll:HoloToolkit.Examples.SpatialUnderstandingFeatureOverview.AppState
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Temp
 0cb76b13a03af476ba6bddab0b6bce47 Assembly-CSharp.dll:HoloToolkit.Examples.Prototyping.CycleText
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ImageSequencer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Vuforia.ReconstructionFromTargetBehaviour
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:HoloToolkit.Unity.Tests.UAudioManagerTest
 7a65adebc9a24f885fe1434a888037a0 Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.GesturesInput
@@ -313,7 +315,7 @@ b39fddbe4ede4fafe2e1641885144305 Assembly-CSharp.dll:HoloToolkit.Unity.WorldAnch
 6818551d7583637717bf6832b2c929dd Assembly-CSharp.dll:HoloToolkit.Examples.SharingWithUNET.SharedAnchorDebugText
 195f6edaa11c1683bbfeec759b3de56d Assembly-CSharp.dll:HoloToolkit.Examples.SpatialUnderstandingFeatureOverview.LevelSolver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AdamTest
-17f1ac414d4653c0730fde5b9ba845f8 Assembly-CSharp.dll:.AdamBehavior
+b84bd96ed81d2794bf2ac79bf7b51b91 Assembly-CSharp.dll:.AdamBehavior
 c1ac6462c82be12ebeffcf18f5562cce Assembly-CSharp.dll:HoloToolkit.Unity.NearPlaneFade
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 5f2ad81aa8994e8fbe25d1e57afe6773 UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
@@ -335,7 +337,7 @@ f7cf9e253f09e4ec8daa4fc98b6daae3 Assembly-CSharp.dll:HoloToolkit.UI.Keyboard.Key
 952bc8ce2ca727c70d8e698a24875af8 Assembly-CSharp.dll:HoloToolkit.Examples.Prototyping.CycleStatusDisplay
 ce610f1f07fce1af31f7a0c83c795c10 Assembly-CSharp.dll:HoloToolkit.Examples.InteractiveElements.InteractiveWidgetStateTest
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AboutScreen
-d693438f945486148f861eea515ebead Assembly-CSharp.dll:.RubixManager
+c0ac11e57709d545ecd75599f1813158 Assembly-CSharp.dll:.RubixManager
 24ccda7d9768f21e49a1e5334c1761a6 Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.Tests.OnFocusEvent
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:HoloToolkit.Unity.InputModule.Tests.TextToSpeechTest
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -411,3 +413,20 @@ f8a336331055a3ae9cc7b382c9b97974 Assembly-CSharp.dll:HoloToolkit.Unity.InputModu
 c1cc82b2110e41150c5ad19a512334bd Assembly-CSharp.dll:HoloToolkit.Examples.Prototyping.FadeColors
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:HoloToolkit.Examples.SpatialUnderstandingFeatureOverview.ShapeDefinition
 7cac06ac0eaa7257b831c29e4455ce1b Assembly-CSharp.dll:Vuforia.VuforiaConfiguration
+b2d676126ba74960ee48abcb00f68590 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.FrameExtract
+7d165bd22388cc8ce94589fca652d993 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.DemoInfo
+5e103f4ea07c73e2bd8921515fff4a7e Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.PlaybackSync
+a1acc395240492d4289818ac92e4515e Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.StartEndPoint
+a725e0cdf6a66fad611cbee4a829088e Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.UpdateStereoMaterial
+7ff07e29b817f888d45de0c7db2b1572 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.ChangeAudioTrack
+9265812f4a2c3588b2070f953542e150 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.DisplayBackground
+df8d315c8c008ad55cce9bc8c03e0af2 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.MediaPlayer
+f6f2ee79808e9510adf72293295bf562 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.CubemapCube
+b59ad4ce82b6f9df2a8c6e94119154c4 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.DisplayIMGUI
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.AutoRotate
+4c6d5bde1fcc57b27ceabdf7870e2d71 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.Mapping3D
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SphereDemo
+1c1ea89a4a721967d83886c841306461 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.ChangeVideoExample
+fc7d2c6d902c809226fd8ee58e3344f5 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.ApplyToMaterial
+f3997dd34fe7fc37c3c3c8fd3130b992 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.ApplyToMesh
+741ac0727a1fd829eca3173ff364c649 Assembly-CSharp.dll:RenderHeads.Media.AVProVideo.Demos.SimpleController

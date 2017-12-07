@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/MAAD.unity
-    guid: 522f71412d288514486a7e76dc05a502
+    path: Assets/_Scenes/Spherical Image.unity
+    guid: d04115849d362aa45ad07d1a12fe0398
