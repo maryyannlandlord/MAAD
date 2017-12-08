@@ -13,7 +13,12 @@ public class flowerBehavior : MonoBehaviour {
 
     Animator animator;
     public FlowerState state;
-    public GameObject[] flowerSounds; 
+    //public AudioSource[] flowerPlayer;
+    //public AudioClip[] flowerBloomsAudio;
+    public GameObject flowerPlayer;
+    public GameObject flowerPlayer2; 
+    //public AudioClip flowerBloomAudio; 
+    private int random;
 
 
     // Use this for initialization
@@ -37,7 +42,10 @@ public class flowerBehavior : MonoBehaviour {
 
             case FlowerState.Bloom:
                 animator.SetBool("Bloom", false);
-                break; 
+                break;
+            case FlowerState.Waiting:
+                animator.SetBool("Waiting", false);
+                break;
 
         }
         switch (state)
@@ -48,14 +56,28 @@ public class flowerBehavior : MonoBehaviour {
             case FlowerState.Bloom:
                 animator.SetBool("Bloom", true);
 
-                foreach(GameObject sound in flowerSounds)
+                /*foreach(AudioSource sound in flowerPlayer)
                 {
-                    AudioController.PlayAudioSource(sound);
-                }
+                    random = Random.Range(0, (flowerBloomsAudio.Length));
+                    sound.clip = flowerBloomsAudio[random];
+                }*/
+
+                AudioController.PlayAudioSource(flowerPlayer);
+                AudioController.PlayAudioSource(flowerPlayer2);
+
+                //flowerPlayer.clip = flowerBloomAudio;
+                //flowerPlayer.Play(); 
 
                 break;
             
         }
 
-    } 
+    }
+
+
 }
+
+
+
+
+

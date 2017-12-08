@@ -13,23 +13,28 @@ public class Ambience : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        AmbientAudio.loop = true; 
+        AmbientAudio.loop = true;
+        AmbientAudio.clip = B_Light;
+        AmbientAudio.Play(); 
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        Debug.Log("ambience clip: " + AmbientAudio.clip);
         if (adam.state == AdamState.Welcome)
+        { AmbientAudio.clip = A_Light;
+          AmbientAudio.Play();
+        } 
+        else if (adam.state == AdamState.FreakOut)
         {
+            AmbientAudio.Stop();
+        }
+        else if (adam.state == AdamState.FadeIn) {
             AmbientAudio.clip = A_Light;
+            AmbientAudio.Play(); 
         }
-        else {
-            AmbientAudio.clip = B_Light;
-        }
-
-        AmbientAudio.Play(); 
-
 		
 	}
 }

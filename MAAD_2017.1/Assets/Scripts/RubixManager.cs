@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using Vuforia;
 using UnityEngine.Video;
-using RenderHeads.Media.AVProVideo; 
+using RenderHeads.Media.AVProVideo;
+using System;
 
 
 // Keeps track of current Rubix/World state, next tracker to look for, and determines Adam's state
@@ -32,18 +32,30 @@ public enum RubixTargetState
         public TransBetween tracker3;
         public Renderer[] trackerRender;
 
+        private bool meltTriggered = false;
+
         public flowerBehavior[] flower;
-        public Animator flowerPath; 
-    
+        public AudioSource[] flowerPlayer;
+        public Animator flowerPath;
+        private float randTime;
+
 
         public GameObject fossilTree;
+
+        public AudioSource clockAudio1;
+        public AudioSource clockAudio2;
+
+
 
         private bool fossilTreeTriggered = false;
         private bool FadeUpdate = false;
 
+        private float timer = 0;
+        private float timerMax = 0;
 
 
-        public Action<RubixTargetState> Success;
+
+    public Action<RubixTargetState> Success;
         public Action<RubixTargetState> Fail;
 
         public RubixTargetState currentStage;
@@ -57,6 +69,7 @@ public enum RubixTargetState
         public float InvestDur;
         public float FadeInDur;
         public float videoDur;
+        public float waveDur; 
 
         private float StartVideo = 0;
 
@@ -161,11 +174,18 @@ public enum RubixTargetState
                 {
                     //adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, welcomeTargetQuat, rotSpeed);
                     adam.SetState(AdamState.Welcome);
+
+                    clockAudio1.loop = true;
+                    clockAudio1.Play();
+
+                    clockAudio2.loop = false;
+                    clockAudio2.Play(); 
+
+
                 }
                 else if (currentStage == RubixTargetState.End)
                 {
                     adam.SetState(AdamState.FadeIn);
-
 
                 }
                 else { adam.SetState(AdamState.Idle); }
@@ -220,7 +240,7 @@ public enum RubixTargetState
         else if (adam.state == AdamState.Welcome)
         {
 
-            if (((Time.time - adam.StartWelcome) / 25.792) >= 1)
+            if (((Time.time - adam.StartWelcome) / 24.5) >= 1)
             {
 
                 Debug.Log("How much time has passed:" + (Time.time - adam.StartWelcome));
@@ -250,7 +270,7 @@ public enum RubixTargetState
             newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
             adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
 
-            tracker1.FadeOut();
+
             tracker2.FadeIn();
 
             if (Time.time >= adam.StartSecDemo + SecDemoDur)
@@ -260,15 +280,30 @@ public enum RubixTargetState
         }
         else if (adam.state == AdamState.Happy)
         {
-            if (Time.time >= adam.StartHappy + HappyDur)
+            if (currentStage == RubixTargetState.SecTracker)
             {
 
-                if (currentStage == RubixTargetState.SecTracker)
+                /*foreach (AudioSource player in flowerPlayer)
+                { 
+                    randTime = UnityEngine.Random.Range(0, 2);
+                    if (Wait(randTime))
+                    {
+                        player.Play();
+                    }
+                    
+                }*/ //////////////////////// NOT PLAYING SOUND (MAYBE JUST REVERT)
+                tracker1.FadeOut();
+
+                if (Time.time >= adam.StartHappy + HappyDur)
                 {
+
 
                     adam.SetState(AdamState.SecDemo);
                 }
+
+
             }
+
         }
         else if (adam.state == AdamState.FadeOut)
         {
@@ -316,13 +351,28 @@ public enum RubixTargetState
             newLookRot = Quaternion.LookRotation(playerTransform.position - adam.transform.position);
             adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
 
+            clockAudio1.Play();
+            clockAudio2.Play();
+
+            foreach (Animator clock in adam.clocks) {
+                clock.enabled = true; 
+            }
+
+
             adamFade.FadeIn();
+
+            foreach (TransBetween f in faders) {
+
+                f.FadeIn(); 
+            }
 
             if (Time.time >= adam.startFadeIn + FadeInDur) {
 
                 Success(currentStage); //success Ending
 
             }
+
+            
 
 
         }
@@ -332,6 +382,10 @@ public enum RubixTargetState
             adam.transform.rotation = Quaternion.Lerp(adam.transform.rotation, newLookRot, rotSpeed);
 
             // fade after certain time ?
+            if (Time.time >= adam.StartWave + waveDur) {
+                adamFade.FadeOut();
+                adam.audioSource.Stop(); 
+            }
 
         }
         else if (currentStage == RubixTargetState.SecTracker && ((adam.state == AdamState.SecHold) || (adam.state == AdamState.FreakOut) || (adam.state == AdamState.Melting)))
@@ -350,7 +404,7 @@ public enum RubixTargetState
                         render.enabled = false;
                     }
                     adamFade.FadeOut();
-                    Debug.Log("adam fade time: " + adamFade.FadeOutdur);
+                    //Debug.Log("adam fade time: " + adamFade.FadeOutdur);
                 }
             }
             if (Time.time >= adam.StartSecHold + MeltingTimeTriggers[2]) // 45 seconds
@@ -362,7 +416,7 @@ public enum RubixTargetState
                 if (adamFade.Wait(adamFade.FossilwaitTime))
                 {
                     adamFade.Fossilize();
-                    Debug.Log("adam fossil time: " + adamFade.Fossildur);
+                    //Debug.Log("adam fossil time: " + adamFade.Fossildur);
 
                 }
 
@@ -381,7 +435,7 @@ public enum RubixTargetState
                         f.FadeOut();
 
                     }
-                    Debug.Log(f + " fade time: " + f.FadeOutdur);
+                    //Debug.Log(f + " fade time: " + f.FadeOutdur);
 
                 }
 
@@ -405,7 +459,15 @@ public enum RubixTargetState
                     {
                         f.Fossilize();
                     }
-                    Debug.Log(f + " fossil time: " + f.Fossildur);
+                    //Debug.Log(f + " fossil time: " + f.Fossildur);
+                }
+
+                clockAudio1.Stop();
+                clockAudio2.Stop();
+
+                foreach (Animator clocks in adam.clocks)
+                {
+                    clocks.enabled = false; 
                 }
 
 
@@ -457,22 +519,31 @@ public enum RubixTargetState
             }
         }
 
-        /*
-        public void turnHeadAt(bool turn) {
-            if (turn)
-            {
-                headLookRot = Quaternion.LookRotation(adamHead.position - adam.transform.position);
-                headLookRot.rotation = Quaternion.Lerp(adam.transform.rotation, headLookRot, 1.0f);
-            }
-            else {
-                headLookRot = Quaternion.LookRotation(adamHead.position - adam.transform.position);
-                headLookRot.rotation = Quaternion.Lerp(adam.transform.rotation, headLookRot, 1.0f);
-            }
-        }*/
+    /*
+    public void turnHeadAt(bool turn) {
+        if (turn)
+        {
+            headLookRot = Quaternion.LookRotation(adamHead.position - adam.transform.position);
+            headLookRot.rotation = Quaternion.Lerp(adam.transform.rotation, headLookRot, 1.0f);
+        }
+        else {
+            headLookRot = Quaternion.LookRotation(adamHead.position - adam.transform.position);
+            headLookRot.rotation = Quaternion.Lerp(adam.transform.rotation, headLookRot, 1.0f);
+        }
+    }*/
 
+    public bool Wait(float seconds)
+    {
+        timerMax = seconds;
+        timer += Time.deltaTime;
 
+        if (timer >= timerMax)
+        { return true; }
+        return false;
 
-        public void TrackerSuccess(RubixTargetState targetStage)
+    }
+
+    public void TrackerSuccess(RubixTargetState targetStage)
         {
             // Tracker created successfully
 

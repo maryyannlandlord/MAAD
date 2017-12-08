@@ -46,14 +46,10 @@ public class AdamBehavior : MonoBehaviour
     public AudioClip tracker2; 
     
 
-    private bool meltTriggered = false; 
-
     public Renderer[] renderers;
 
 
     public Animator[] clocks;
-    public AudioSource clockgear1;
-    public AudioSource clockgear2;
 
     [HideInInspector]
     public float StartFirstDemo;
@@ -72,7 +68,9 @@ public class AdamBehavior : MonoBehaviour
     [HideInInspector]
     public float StartWelcome;
     [HideInInspector]
-    public float startFadeIn; 
+    public float startFadeIn;
+    [HideInInspector]
+    public float StartWave; 
     
     public Transform _adamAnchor; 
 
@@ -114,9 +112,6 @@ public class AdamBehavior : MonoBehaviour
             clock.enabled = false; 
         }
 
-        
-        //AudioController.PlayAudioSource(this.gameObject, eating);
-        
     }
 
     // Update is called once per frame
@@ -188,12 +183,14 @@ public class AdamBehavior : MonoBehaviour
                 break;
             case AdamState.FreakOut:
                 animator.SetBool("FreakOut", false);
+                audioSource.Stop();
                 break;
             case AdamState.FadeOut:
                 animator.SetBool("Idle", false);
                 break;
             case AdamState.FadeIn:
-                animator.SetBool("Idle", false);
+                animator.SetBool("Happy", false);
+                audioSource.Stop(); 
                 break;
             case AdamState.Wave:
                 animator.SetBool("Wave", false);
@@ -215,8 +212,6 @@ public class AdamBehavior : MonoBehaviour
                 audioSource.clip = idle;
                 audioSource.loop = true;
                 audioSource.Play();
-
-
 
                 break;
             case AdamState.Happy:
@@ -248,9 +243,12 @@ public class AdamBehavior : MonoBehaviour
                     flyTarget = TargetPoint3; 
                 }
 
-                audioSource.clip = fly;
-                audioSource.loop = true;
-                audioSource.Play();
+                if (rubix.currentStage != RubixTargetState.End)
+                {
+                    audioSource.clip = fly;
+                    audioSource.loop = true;
+                    audioSource.Play();
+                }
 
 
                 break;
@@ -286,6 +284,7 @@ public class AdamBehavior : MonoBehaviour
                 audioSource.loop = true; 
                 audioSource.Play();
 
+
                 break;
             case AdamState.Surprise:
                 StartSurprise = Time.time;
@@ -314,18 +313,13 @@ public class AdamBehavior : MonoBehaviour
                     clock.enabled = true;
 
                 }
-                clockgear1.Play();
-                clockgear2.Play(); 
+                //AudioController.PlayAudioSource(clockgear1);
+                //AudioController.PlayAudioSource(clockgear2);
 
                 break;
             case AdamState.Melting:
                 animator.SetBool("Melting", true);
-         
-                 audioSource.clip = melt;
-                 audioSource.loop = true;
-                 audioSource.Play();
-
-
+                Debug.Log("melting time" + Time.time);
                 break;
             case AdamState.FreakOut:
                 animator.SetBool("FreakOut", true);   
@@ -336,11 +330,18 @@ public class AdamBehavior : MonoBehaviour
 
                 break;
             case AdamState.FadeIn:
-                animator.SetBool("Idle", true);
-                startFadeIn = Time.time; 
+                animator.SetBool("Happy", true);
+                startFadeIn = Time.time;
+
+                audioSource.clip = happy;
+                audioSource.loop = true;
+                audioSource.Play();
+
                 break;
             case AdamState.Wave:
                 animator.SetBool("Wave", true);
+
+                StartWave = Time.time; 
 
                 audioSource.clip = wave;
                 audioSource.loop = true;
